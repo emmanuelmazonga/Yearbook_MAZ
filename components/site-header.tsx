@@ -1,7 +1,8 @@
+import {content} from "@/lib/sanity";
 import Link from "next/link";
 import { ArrowUpRight, Menu } from "lucide-react";
 
-const links = [
+const baseLinks = [
   ["Schools", "/schools"],
   ["Yearbook", "/yearbooks/copperview-2026"],
   ["Photography", "/photography"],
@@ -9,14 +10,16 @@ const links = [
   ["About", "/about"],
 ] as const;
 
-export function SiteHeader() {
+export async function SiteHeader() {
+ const docs=await content(); const settings=docs.find(d=>d._id==="siteSettings"); const book=docs.find(d=>d._type==="yearbook" && d._id===settings?.featuredYearbook?._ref);
+ const links=baseLinks.map(([label,href])=>[label,label==="Yearbook" ? (book ? "/yearbooks/"+book.slug.current : "/schools") : href]);
   return (
     <header className="sticky top-0 z-40 border-b border-black/10 bg-[#f6f1e7]/92 backdrop-blur-xl">
       <div className="page-shell flex h-[76px] items-center justify-between gap-6">
-        <Link href="/" className="focus-ring flex items-center gap-3 rounded-md" aria-label="Copperview Yearbook home">
+        <Link href="/" className="focus-ring flex items-center gap-3 rounded-md" aria-label="Yearbook home">
           <span className="grid size-10 place-items-center bg-[#701d33] text-sm font-black tracking-tight text-[#fffaf0]">CV</span>
           <span className="leading-tight">
-            <strong className="display block text-lg font-semibold">Copperview</strong>
+            <strong className="display block text-lg font-semibold">{settings?.siteTitle || "Living Yearbooks"}</strong>
             <span className="block text-[10px] font-bold uppercase tracking-[.24em] text-[#701d33]">Living Yearbooks</span>
           </span>
         </Link>

@@ -57,9 +57,26 @@ npm run build
 
 The standalone [Sanity Studio foundation](studio/README.md) lives in `studio/`.
 It has a separate installation and build and is configured for Sanity project
-`3yrbpvzl`, dataset `production`. Content schemas are included; migration and public-site
-integration are pending.
+`3yrbpvzl`, dataset `production`. The public site reads published content from Sanity
+at request time, via its CDN, without a token. No redeployment is needed for content
+updates; allow a short CDN delay and refresh the page after publishing.
 
-This repository contains a front-end product prototype. It does not yet include
-a production content-management system, persistent database, authentication,
-payments, image uploads or message delivery.
+Edit content and upload photographs at https://yearbook-maz.sanity.studio/.
+Publish the school first, then its yearbook, then related profiles, gallery photos
+and memories. Choose the featured yearbook in Site settings. New school/yearbook
+slugs automatically receive routes; changing a slug changes its URL. Drafts and
+children of unpublished schools/yearbooks are not displayed. Existing dotted demo
+IDs are excluded; keep the completed public-IDs migration in place.
+
+CMS-controlled fields include school details, yearbook title/year/introduction,
+headteacher message, school-life highlights, print options, student details and
+portraits, gallery images/captions, memories, homepage introduction/hero/featured
+edition, site title, tagline, footer and contact details. Marketing page layouts,
+service descriptions and general headings remain code-controlled. The enquiry
+form remains a demonstration and does not deliver messages; payments and student
+self-submission are not implemented.
+
+Run `npm run build` then `node --test tests/sanity-integration.test.mjs` for the CMS
+route checks. These checks use isolated fixtures and never change production data.
+Only publish information and photographs approved for public viewing: the Sanity
+dataset and image URLs are public even while the Sites prototype is private.
