@@ -75,4 +75,11 @@ async function main(){
   for(const file of files){const hash=createHash('sha1').update(buffers[file]).digest('hex');const existing=await client.fetch('*[_type == "sanity.imageAsset" && sha1hash == $hash][0]._id',{hash});assets[file]=existing||(await client.assets.upload('image',buffers[file],{filename:file,contentType:'image/webp'}))._id}
   console.log(`Verified ${await migrate(client,assets)} documents after migration.`)
 }
-if(process.argv[1]===fileURLToPath(import.meta.url))main().catch(e=>{console.error(e.message);process.exitCode=1})
+if(process.argv[1]===fileURLToPath(import.meta.url)) {
+  try {
+    await main()
+  } catch (error) {
+    console.error(error.stack || error.message)
+    process.exitCode = 1
+  }
+}
