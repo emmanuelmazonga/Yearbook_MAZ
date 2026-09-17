@@ -2,7 +2,7 @@ import {defineArrayMember, defineField, defineType} from 'sanity'
 
 const order = defineField({name: 'displayOrder', title: 'Display order', type: 'number', initialValue: 0, validation: r => r.integer().min(0)})
 const featured = defineField({name: 'featured', type: 'boolean', initialValue: false})
-const yearbookRef = defineField({name: 'yearbook', type: 'reference', to: [{type: 'yearbook'}], validation: r => r.required()})
+const yearbookRef = defineField({name: 'yearbook', type: 'reference', to: [{type: 'yearbook'}], options: {filter: '!(_id in path("demo.**"))'}, validation: r => r.required()})
 const slug = (source: string) => defineField({name: 'slug', type: 'slug', options: {source, maxLength: 96}, validation: r => r.required()})
 const text = (name: string, title: string, required = false) => defineField({name, title, type: 'string', validation: r => required ? r.required() : r})
 const ordered = [{title: 'Display order', name: 'displayOrder', by: [{field: 'displayOrder', direction: 'asc' as const}]}]
@@ -37,7 +37,7 @@ const yearbook = defineType({
   name: 'yearbook', title: 'Yearbooks', type: 'document',
   fields: [
     text('title', 'Yearbook title', true), slug('title'),
-    defineField({name: 'school', type: 'reference', to: [{type: 'school'}], validation: r => r.required()}),
+    defineField({name: 'school', type: 'reference', to: [{type: 'school'}], options: {filter: '!(_id in path("demo.**"))'}, validation: r => r.required()}),
     defineField({name: 'graduationYear', title: 'Graduation year', type: 'number', validation: r => r.required().integer().min(1900).max(2200)}),
     text('volume', 'Volume / edition'),
     defineField({name: 'introduction', type: 'text', rows: 4}),
@@ -101,7 +101,7 @@ const siteSettings = defineType({
     text('siteTitle', 'Site title', true), text('tagline', 'Tagline'),
     defineField({name: 'introduction', type: 'text', rows: 4}),
     defineField({name: 'heroImage', type: 'editorialImage'}),
-    defineField({name: 'featuredYearbook', type: 'reference', to: [{type: 'yearbook'}]}),
+    defineField({name: 'featuredYearbook', type: 'reference', to: [{type: 'yearbook'}], options: {filter: '!(_id in path("demo.**"))'}}),
     defineField({name: 'contactEmail', title: 'Public contact email', type: 'string', validation: r => r.email()}),
     text('contactPhone', 'Public business phone'),
     defineField({name: 'footerText', type: 'text', rows: 3}),

@@ -1,5 +1,17 @@
 # Demo migration
 
+## Public-read correction after the original import
+
+The original `demo.*` document IDs are non-root paths and are not readable by anonymous visitors. After the original import, run this authenticated correction before connecting the public site:
+
+```sh
+npx sanity exec migrations/public-ids.mjs --with-user-token -- --apply
+```
+
+It copies the 18 existing records to hyphenated IDs, preserves their current content, rewrites their references, and updates the featured-yearbook reference with a revision check. It leaves originals intact as backups, skips any public copies that already exist, and verifies all 19 content records through an unauthenticated API request. Existing drafts must be resolved first. The Studio sidebar and reference pickers exclude the old `demo.*` copies; global search may still find them. Edit the hyphenated records going forward.
+
+Then deploy Studio with `npm run deploy` from `studio/`. Select an available hostname such as `yearbook-maz` and retain the actual URL reported by the CLI. The public website connection is not deployed yet.
+
 Run from `studio/` on branch `feat/sanity-studio-setup`:
 
 ```sh
