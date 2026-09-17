@@ -67,7 +67,7 @@ async function main(){
   // Current Sanity CLI sessions may keep credentials outside client.config().
   // Verify the session with an authenticated request instead of inspecting it.
   try {
-    await client.request({uri: '/users/me'})
+    await client.request({url: '/users/me'})
   } catch (error) {
     throw new Error(`Sanity authentication failed. Run npx sanity login from studio, then retry. (${error.message})`)
   }
