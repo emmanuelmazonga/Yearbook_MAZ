@@ -64,8 +64,13 @@ async function main(){
   if(!apply)return
   const {getCliClient}=await import('sanity/cli');const client=getCliClient({apiVersion:'2026-09-17'}).withConfig({useCdn:false,perspective:'raw'})
   assert.equal(client.config().projectId,'3yrbpvzl','Refusing unexpected project');assert.equal(client.config().dataset,'production','Refusing unexpected dataset')
-  assert(client.config().token,'Sanity sign-in is required. Run npx sanity login from studio, then retry.')
-  await client.request({uri:'/users/me'})
+  // Current Sanity CLI sessions may keep credentials outside client.config().
+  // Verify the session with an authenticated request instead of inspecting it.
+  try {
+    await client.request({uri: '/users/me'})
+  } catch (error) {
+    throw new Error(`Sanity authentication failed. Run npx sanity login from studio, then retry. (${error.message})`)
+  }
   const assets={}
   for(const file of files){const hash=createHash('sha1').update(buffers[file]).digest('hex');const existing=await client.fetch('*[_type == "sanity.imageAsset" && sha1hash == $hash][0]._id',{hash});assets[file]=existing||(await client.assets.upload('image',buffers[file],{filename:file,contentType:'image/webp'}))._id}
   console.log(`Verified ${await migrate(client,assets)} documents after migration.`)

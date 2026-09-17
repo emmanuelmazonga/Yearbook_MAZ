@@ -14,3 +14,7 @@ test('rerunning preserves editorial changes and creates no duplicate records',as
   await migrate(client,assets);db.get('demo.student.chanda-mwansa').quote='Edited by Emmanuel'
   await migrate(client,assets);assert.equal(db.size,19);assert.equal(db.get('demo.student.chanda-mwansa').quote,'Edited by Emmanuel')
 })
+test('migration does not depend on credentials being exposed in client config',async()=>{
+  const db=new Map();const client={config:()=>({token:undefined}),transaction(){const pending=[];return {createIfNotExists(d){pending.push(d);return this},async commit(){for(const d of pending)if(!db.has(d._id))db.set(d._id,structuredClone(d))}}},async fetch(q,{ids}){return ids.filter(id=>db.has(id)).map(_id=>({_id}))}}
+  assert.equal(await migrate(client,assets),19)
+})
