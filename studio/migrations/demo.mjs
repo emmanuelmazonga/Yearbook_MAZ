@@ -69,7 +69,7 @@ async function main(){
   try {
     await client.request({url: '/users/me'})
   } catch (error) {
-    throw new Error(`Sanity authentication failed. Run npx sanity login from studio, then retry. (${error.message})`)
+    throw new Error(`Sanity authentication failed. Run npx sanity login, then launch this migration with npx sanity exec migrations/demo.mjs --with-user-token -- --apply. (${error.message})`)
   }
   const assets={}
   for(const file of files){const hash=createHash('sha1').update(buffers[file]).digest('hex');const existing=await client.fetch('*[_type == "sanity.imageAsset" && sha1hash == $hash][0]._id',{hash});assets[file]=existing||(await client.assets.upload('image',buffers[file],{filename:file,contentType:'image/webp'}))._id}

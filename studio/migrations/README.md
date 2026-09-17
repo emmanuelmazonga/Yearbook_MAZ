@@ -6,10 +6,10 @@ Run from `studio/` on branch `feat/sanity-studio-setup`:
 node migrations/demo.mjs
 node --test migrations/demo.test.mjs
 npx sanity login
-node migrations/demo.mjs --apply
+npx sanity exec migrations/demo.mjs --with-user-token -- --apply
 ```
 
-The default is a local dry run. `--apply` requires authenticated Sanity CLI access and refuses any target other than `3yrbpvzl/production`. Do not paste credentials into source or chat.
+The default is a local dry run. Applying through `sanity exec --with-user-token` passes the current CLI session to `getCliClient()`; running the apply command through plain `node` does not. The script refuses any target other than `3yrbpvzl/production`. Do not paste credentials into source or chat.
 
 The import uploads/reuses the three existing WebP images and creates 19 published fictional demo documents: three schools, the Copperview 2026 yearbook, four student profiles, six gallery photographs, four memories and site settings. Student images reuse the existing composite with per-profile Sanity crops; replace them with individual approved portraits later. These are fictional demo assignments, not verified identities.
 
