@@ -7,8 +7,8 @@ Standalone Sanity Studio for the yearbook administrator. This is Step 2: the Stu
 Use Node.js 22.12 or later. From this directory:
 
 1. Run `npm ci`.
-2. Copy `.env.example` to `.env.local`.
-3. Set `SANITY_STUDIO_PROJECT_ID` to your existing project's ID from <https://www.sanity.io/manage>. Set the dataset to its actual name (default `production`). These identifiers are not secret tokens.
+2. The Studio is configured for project `3yrbpvzl`, dataset `production`.
+3. Optionally copy `.env.example` to `.env.local` to override these identifiers for another environment. These identifiers are not secret tokens.
 4. Run `npm run dev` and open the localhost URL printed by Sanity.
 5. Sign in with the Sanity account that owns the project.
 
