@@ -38,3 +38,7 @@ Required fields and image assets are validated before publishing in Studio. Refe
 Student fields map to the current prototype (name, nickname, class, activity, quote, memory and ambition), with biography, achievements and approved public social links available. The dataset is public: keep student private contact details and consent records outside it.
 
 To verify schema compilation without writing content: `npx sanity schema extract --path .sanity/schema.json`.
+
+## Demo content migration
+
+See [migrations/README.md](migrations/README.md) for a dry run, validation tests and the authenticated import command. The prepared migration does not mean content has already been imported.
