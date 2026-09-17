@@ -1,6 +1,6 @@
 # Yearbook MAZ Studio
 
-Standalone Sanity Studio for the yearbook administrator. This is Step 2: the Studio foundation. Content schemas are added in Step 3; migration and the public website connection follow afterward. Until then the document list is empty and Studio edits do not affect the public website.
+Standalone Sanity Studio for the yearbook administrator. Steps 2 and 3 are implemented: the Studio foundation and content schemas. Migration and the public website connection follow afterward. Studio edits do not yet affect the public website.
 
 ## Start locally
 
@@ -23,3 +23,18 @@ The Studio interface may be publicly reachable, but editing requires authenticat
 Studio has its own dependencies and lockfile. Run its install/build commands in this directory, separately from the public website.
 
 References: [installation](https://www.sanity.io/docs/studio/installation), [hosting](https://www.sanity.io/docs/studio/deployment).
+
+## Content editing order
+
+1. Create and publish a **School** with its name, URL slug and location.
+2. Create and publish a **Yearbook**, choosing its school and graduation year. Add its cover, introduction, headteacher message, school-life highlights and print options.
+3. Add **Student profiles**, **Gallery photos** and **Memories and stories**, choosing the appropriate yearbook for each entry.
+4. Open **Site settings** to set the site title, featured yearbook and public business contact details. This is one shared settings document.
+
+Images support crop/hotspot controls, required alt text, captions and photographer credits. Lower display-order numbers appear first once the frontend integration implements ordering. Featured flags likewise become active during frontend integration. Use Sanity's built-in drafts, Publish and Unpublish actions; no separate publication checkbox is needed.
+
+Required fields and image assets are validated before publishing in Studio. References are strong: publish a school before its yearbook, and a yearbook before its student/photo/story entries. These Studio rules are not server-side API validation; migration code must validate imported records separately. Site settings is a Studio singleton, not a server-side uniqueness constraint.
+
+Student fields map to the current prototype (name, nickname, class, activity, quote, memory and ambition), with biography, achievements and approved public social links available. The dataset is public: keep student private contact details and consent records outside it.
+
+To verify schema compilation without writing content: `npx sanity schema extract --path .sanity/schema.json`.

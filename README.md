@@ -57,7 +57,7 @@ npm run build
 
 The standalone [Sanity Studio foundation](studio/README.md) lives in `studio/`.
 It has a separate installation and build and is configured for Sanity project
-`3yrbpvzl`, dataset `production`. Content schemas, migration, and public-site
+`3yrbpvzl`, dataset `production`. Content schemas are included; migration and public-site
 integration are pending.
 
 This repository contains a front-end product prototype. It does not yet include
