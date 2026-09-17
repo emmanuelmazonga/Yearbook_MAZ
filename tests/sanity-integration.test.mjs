@@ -23,9 +23,17 @@ test('published CMS content drives pages, filters, images and new slugs', async 
       const response=await worker.fetch(new Request('https://yearbook.test'+path),{ASSETS:{fetch:async()=>new Response('',{status:404})}},{waitUntil(){},passThroughOnException(){}});
       return {status:response.status,html:await response.text()};
     };
+    const school=fixture.result.find(d=>d._type==='school' && d.slug?.current==='copperview-secondary');
+    const gallery=fixture.result.find(d=>d._type==='galleryPhoto');
+    school.branding={primaryColor:'#123A70',secondaryColor:'#F7F7F7',accentColor:'#E9B949'};
+    school.principal={name:'Dr Test Principal',role:'Principal',message:'A test message.',portrait:gallery.image};
+    school.schoolPhotos=[{...gallery.image,_key:'campus-test'}];
+    school.socialLinks=[{_key:'social-test',label:'School news',url:'https://example.com/news'}];
     for(const path of ['/','/schools','/schools/copperview-secondary','/yearbooks/copperview-2026','/photography','/contact','/about','/for-schools']) {
       const {status,html}=await render(path); assert.equal(status,200,path); assert(!html.includes('temporarily unavailable'),path);
     }
+    const landing=await render('/schools/copperview-secondary');
+    assert.match(landing.html,/#123A70/); assert.match(landing.html,/#E9B949/); assert.match(landing.html,/Dr Test Principal/); assert.match(landing.html,/School news/);
     const initial=await render('/yearbooks/copperview-2026');
     assert.match(initial.html,/Chanda Mwansa/); assert.match(initial.html,/cdn.sanity.io/); assert.match(initial.html,/rect=/);
     const student=fixture.result.find(d=>d._type==='studentProfile'); student.fullName='CMS update verified';

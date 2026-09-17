@@ -23,6 +23,8 @@ export function documents(assets) {
     ['kalundu-park-school', 'Kalundu Park School', 'Lusaka', files[2]],
   ].map(([id, name, city, file], displayOrder) => ({_id: `demo.school.${id}`, _type: 'school', name, slug: slug(id), city, country: 'Zambia', description: 'Fictional demonstration school.', coverImage: image(file, `Fictional ${name} school community`), displayOrder, featured: displayOrder === 0}))
   schools[0].motto = 'Knowledge · Character · Service'
+  schools[0].branding = {_type: 'object', primaryColor: '#701D33', secondaryColor: '#F6F1E7', accentColor: '#D8B56D'}
+  schools[0].establishedYear = 1988
   schools[0].description = 'Copperview Secondary is a fictional demonstration school created to show how a real school’s identity can live inside a growing digital archive. Its colours, voices and graduating classes remain distinct while sharing one reliable platform.'
   const book = {_id: yearbook._ref, _type: 'yearbook', title: 'The Copper Chapter', slug: slug('copperview-2026'), school: ref(schools[0]._id), graduationYear: 2026, volume: '01', studentCount: 186,
     introduction: '186 students. One final year. Thousands of moments worth keeping.', heroImage: image(files[0], 'Fictional Copperview Class of 2026 students celebrating together'),

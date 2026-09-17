@@ -76,6 +76,13 @@ service descriptions and general headings remain code-controlled. The enquiry
 form remains a demonstration and does not deliver messages; payments and student
 self-submission are not implemented.
 
+Each published school automatically receives a page at `/schools/<school-slug>`.
+Its primary, background and accent colours, logo, cover image, principal details,
+school photographs, public links and yearbook shelf are managed from the School
+record. Foreground colours are calculated automatically for readable contrast.
+Yearbooks reference their School record, so there is no second yearbook list to
+maintain on the school document.
+
 Run `npm run build` then `node --test tests/sanity-integration.test.mjs` for the CMS
 route checks. These checks use isolated fixtures and never change production data.
 Only publish information and photographs approved for public viewing: the Sanity

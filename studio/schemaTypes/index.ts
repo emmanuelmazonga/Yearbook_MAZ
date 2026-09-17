@@ -6,6 +6,12 @@ const yearbookRef = defineField({name: 'yearbook', type: 'reference', to: [{type
 const slug = (source: string) => defineField({name: 'slug', type: 'slug', options: {source, maxLength: 96}, validation: r => r.required()})
 const text = (name: string, title: string, required = false) => defineField({name, title, type: 'string', validation: r => required ? r.required() : r})
 const ordered = [{title: 'Display order', name: 'displayOrder', by: [{field: 'displayOrder', direction: 'asc' as const}]}]
+const color = (name: string, title: string, initialValue: string) => defineField({
+  name, title, type: 'string', initialValue,
+  description: 'Use a six-digit hex colour, for example #7B1E2B.',
+  validation: r => r.required().regex(/^#[0-9a-fA-F]{6}$/, {name: 'hex colour', invert: false}),
+})
+const socialLinks = defineField({name: 'socialLinks', title: 'Public social links', type: 'array', of: [defineArrayMember({type: 'object', name: 'socialLink', fields: [text('label', 'Platform / label', true), defineField({name: 'url', type: 'url', validation: r => r.required().uri({scheme: ['https']})})]})]})
 
 const editorialImage = defineType({
   name: 'editorialImage', title: 'Photograph', type: 'image',
@@ -26,6 +32,19 @@ const school = defineType({
     defineField({name: 'description', type: 'text', rows: 4}),
     defineField({name: 'logo', type: 'editorialImage'}),
     defineField({name: 'coverImage', type: 'editorialImage'}),
+    defineField({name: 'branding', title: 'School branding', type: 'object', description: 'These colours apply only to this school’s landing page. Text contrast is calculated automatically.', fields: [
+      color('primaryColor', 'Primary colour', '#701D33'),
+      color('secondaryColor', 'Page background colour', '#F6F1E7'),
+      color('accentColor', 'Accent colour', '#D8B56D'),
+    ]}),
+    defineField({name: 'establishedYear', title: 'Year established', type: 'number', validation: r => r.integer().min(1800).max(2200)}),
+    defineField({name: 'principal', title: 'Principal / headteacher', type: 'object', fields: [
+      text('name', 'Name', true), text('role', 'Role / title'),
+      defineField({name: 'message', type: 'text', rows: 6}),
+      defineField({name: 'portrait', type: 'editorialImage'}),
+    ]}),
+    defineField({name: 'schoolPhotos', title: 'School landing-page photographs', type: 'array', of: [defineArrayMember({type: 'editorialImage'})], validation: r => r.max(8)}),
+    socialLinks,
     defineField({name: 'website', type: 'url', validation: r => r.uri({scheme: ['https', 'http']})}),
     order, featured,
   ],
@@ -63,7 +82,7 @@ const studentProfile = defineType({
     defineField({name: 'favouriteMemory', type: 'text', rows: 3}),
     text('ambition', 'Future ambition'),
     defineField({name: 'achievements', type: 'array', of: [defineArrayMember({type: 'string'})]}),
-    defineField({name: 'socialLinks', title: 'Approved public social links', type: 'array', of: [defineArrayMember({type: 'object', name: 'socialLink', fields: [text('label', 'Platform', true), defineField({name: 'url', type: 'url', validation: r => r.required().uri({scheme: ['https']})})]})]}),
+    socialLinks,
     order, featured,
   ],
   orderings: [...ordered, {title: 'Name', name: 'name', by: [{field: 'fullName', direction: 'asc'}]}],

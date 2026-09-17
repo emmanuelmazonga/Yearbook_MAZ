@@ -1,4 +1,5 @@
 import {content, imageUrl} from "@/lib/sanity";
+import {schoolTheme} from "@/lib/school-theme";
 import type { Metadata } from "next";
 import { SchoolDirectory } from "@/components/school-directory";
 
@@ -8,7 +9,8 @@ export default async function SchoolsPage() {
   const docs = await content();
   const schools = docs.filter(d => d._type === 'school').map(s => {
     const books = docs.filter(d => d._type === 'yearbook' && d.school?._ref === s._id).sort((a,b) => b.graduationYear-a.graduationYear);
-    return {id:s._id,name:s.name,city:s.city,country:s.country,years:books.map(b=>String(b.graduationYear)),latest:books.length ? 'Class of '+books[0].graduationYear : 'Coming soon',image:imageUrl(s.coverImage),href:'/schools/'+s.slug.current,colors:'from-[#701d33] to-[#32101d]'};
+    const theme=schoolTheme(s);
+    return {id:s._id,name:s.name,city:s.city,country:s.country,years:books.map(b=>String(b.graduationYear)),latest:books.length ? 'Class of '+books[0].graduationYear : 'Coming soon',image:imageUrl(s.coverImage),imageAlt:s.coverImage?.alt||'',logo:imageUrl(s.logo,160),href:'/schools/'+s.slug.current,primary:theme.primary,primaryInk:theme.primaryInk,accent:theme.accent};
   });
   return (
     <main className="section-space min-h-screen">
