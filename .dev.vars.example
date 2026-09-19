@@ -1,0 +1,9 @@
+# Server-only local development values. Copy to .dev.vars and fill these in.
+# Configure the same names through the hosting environment in production.
+MAILJET_API_KEY=mj_replace_me
+MAILJET_SECRET_KEY=mj_replace_me
+UPSTASH_REDIS_REST_URL=https://replace-me.upstash.io
+UPSTASH_REDIS_REST_TOKEN=replace_me
+ENQUIRY_TO_EMAIL=you@example.com
+ENQUIRY_FROM_EMAIL=your-verified-sender@example.com
+ENQUIRY_RATE_LIMIT_SALT=replace-with-a-long-random-value

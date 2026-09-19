@@ -1,0 +1,88 @@
+{
+  "students": [
+    {
+      "name": "Chanda Mwansa",
+      "nickname": "Chan",
+      "quote": "Some of the best memories happened when we were supposed to be studying.",
+      "activity": "Photography Club",
+      "memory": "Inter-school sports day, especially the final relay.",
+      "ambition": "Software Engineer",
+      "group": "12A",
+      "position": "0%"
+    },
+    {
+      "name": "Mutinta Chileshe",
+      "nickname": "Tinta",
+      "quote": "Start before you feel ready.",
+      "activity": "Debate Society",
+      "memory": "Our first debate win in Ndola.",
+      "ambition": "Human Rights Lawyer",
+      "group": "12A",
+      "position": "34%"
+    },
+    {
+      "name": "Bwalya Musonda",
+      "nickname": "B",
+      "quote": "The team made every difficult day lighter.",
+      "activity": "Football Team",
+      "memory": "Scoring in the Copperbelt schools final.",
+      "ambition": "Civil Engineer",
+      "group": "12B",
+      "position": "67%"
+    },
+    {
+      "name": "Thandiwe Phiri",
+      "nickname": "Tee",
+      "quote": "Make room for joy in the timetable.",
+      "activity": "JETS Club",
+      "memory": "Building our solar dryer for the science fair.",
+      "ambition": "Renewable Energy Engineer",
+      "group": "12B",
+      "position": "100%"
+    }
+  ],
+  "photos": [
+    {
+      "title": "The final bell",
+      "category": "Friends",
+      "image": "/images/hero-class-2026.webp",
+      "position": "center",
+      "span": "sm:col-span-2 sm:row-span-2"
+    },
+    {
+      "title": "Cultural Day rhythm",
+      "category": "Events",
+      "image": "/images/cultural-day.webp",
+      "position": "center",
+      "span": "sm:row-span-2"
+    },
+    {
+      "title": "Portrait afternoon",
+      "category": "Portraits",
+      "image": "/images/students-camera-football.webp",
+      "position": "36% center",
+      "span": ""
+    },
+    {
+      "title": "Club friends",
+      "category": "Clubs",
+      "image": "/images/students-camera-football.webp",
+      "position": "80% center",
+      "span": ""
+    },
+    {
+      "title": "Our loudest afternoon",
+      "category": "Sports",
+      "image": "/images/hero-class-2026.webp",
+      "position": "78% center",
+      "span": "sm:col-span-2"
+    },
+    {
+      "title": "Behind the lens",
+      "category": "Behind the scenes",
+      "image": "/images/students-camera-football.webp",
+      "position": "10% center",
+      "span": ""
+    }
+  ]
+}

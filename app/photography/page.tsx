@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
+import {content, imageUrl} from "@/lib/sanity";
 import Link from "next/link";
 import { ArrowRight, Camera, Images, Sparkles } from "lucide-react";
 import { YearbookGallery } from "@/components/yearbook-gallery";
+import {pageMetadata} from "@/lib/site";
 
-export const metadata: Metadata = { title: "School Photography", description: "Graduation, portrait, sports and event photography for schools across Zambia." };
+export const metadata: Metadata = pageMetadata({title:"School Photography",description:"Graduation, portrait, sports and event photography for schools across Zambia.",path:"/photography"});
 
 const services = ["Graduation photography", "Individual portraits", "Group & class photos", "Sports photography", "Event photography", "Club photography", "Staff portraits"];
 
-export default function PhotographyPage() {
+export default async function PhotographyPage() {
+  const docs=await content();
+  const books=new Set(docs.filter(d=>d._type==='yearbook' && docs.some(s=>s._type==='school' && s._id===d.school?._ref)).map(d=>d._id));
+  const photos=docs.filter(d=>d._type==='galleryPhoto' && books.has(d.yearbook?._ref)).map((p,i)=>({id:p._id,title:p.title,category:p.category,image:imageUrl(p.image),alt:p.image?.alt||p.title,caption:p.image?.caption,position:'center',span:i===0?'sm:col-span-2 sm:row-span-2':''}));
   return (
     <main>
       <section className="grid min-h-[78svh] bg-[#132f31] text-white lg:grid-cols-[1.05fr_.95fr]">
         <div className="flex items-center px-[max(1.25rem,calc((100vw-1240px)/2))] py-20 lg:pr-12">
           <div><p className="eyebrow text-[#f1ca7e]">School photography / Copperbelt</p><h1 className="display mt-5 text-6xl leading-[.9] tracking-[-.05em] sm:text-8xl">Photographs that feel like being there again.</h1><p className="mt-7 max-w-xl text-lg leading-8 text-white/68">Professional school photography with warmth, energy and a sense of place—from formal portraits to the moments nobody planned.</p><Link href="/contact" className="focus-ring mt-9 inline-flex items-center gap-2 bg-[#f6f1e7] px-6 py-4 font-bold text-[#171713]">Book school photography <ArrowRight className="size-4" /></Link></div>
         </div>
-        <img src="/images/students-camera-football.webp" alt="Copperview students posing for a relaxed school portrait" className="min-h-[520px] h-full w-full object-cover" />
+        {photos[0]?.image && <img src={photos[0].image} alt={photos[0].alt} fetchPriority="high" decoding="async" className="min-h-[520px] h-full w-full object-cover" />}
       </section>
 
       <section className="section-space">
@@ -27,7 +32,7 @@ export default function PhotographyPage() {
       </section>
 
       <section className="section-space bg-[#132f31] text-white">
-        <div className="page-shell"><p className="eyebrow text-[#f1ca7e]">Selected school life</p><h2 className="display mt-4 max-w-3xl text-5xl sm:text-7xl">Portraits, movement and everything between.</h2><div className="mt-12"><YearbookGallery /></div></div>
+        <div className="page-shell"><p className="eyebrow text-[#f1ca7e]">Selected school life</p><h2 className="display mt-4 max-w-3xl text-5xl sm:text-7xl">Portraits, movement and everything between.</h2><div className="mt-12"><YearbookGallery photos={photos} /></div></div>
       </section>
 
       <section className="section-space bg-[#e7dcc7]">
