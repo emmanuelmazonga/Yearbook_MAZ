@@ -35,16 +35,12 @@ async function readCssTree(directory) {
   return contents.join("\n");
 }
 
-test("emits the catalog's animation and scrolling utilities", async () => {
+test("emits the site's accessibility and brand styles", async () => {
   const css = await readCssTree(path.join(root, "dist"));
 
-  assert.match(css, /--tw-enter-opacity/);
-  assert.match(css, /scrollbar-width:\s*thin/);
-  assert.match(css, /scrollbar-width:\s*none/);
-  assert.match(css, /scrollbar-gutter:\s*stable/);
-  assert.match(css, /scroll-fade-reveal-b/);
-  assert.match(css, /mask-image:/);
-  assert.match(css, /tw-shimmer/);
+  assert.match(css, /\.focus-ring:focus-visible/);
+  assert.match(css, /body:has\(>\.school-shell\)/);
+  assert.match(css, /\.policy-copy/);
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
 });
 

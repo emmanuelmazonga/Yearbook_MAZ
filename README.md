@@ -25,7 +25,7 @@ photography was generated specifically for this prototype.
 - Physical yearbook options
 - Photography-services and school-partnership pages
 - Responsive navigation and mobile layouts
-- Prototype school enquiry flow
+- Secure school enquiry flow with validation, consent, honeypot and rate limiting
 
 ## Technology
 
@@ -37,6 +37,9 @@ photography was generated specifically for this prototype.
 - Radix UI / shadcn components
 - Lucide React icons
 - Cloudflare Workers-compatible output
+- Vercel-compatible Next.js build
+- Mailjet transactional email delivery
+- Upstash Redis rate limiting
 
 ## Run locally
 
@@ -52,6 +55,36 @@ Create a production build with:
 ```bash
 npm run build
 ```
+
+Validate the standard Next.js build used by Vercel with:
+
+```bash
+npm run build:vercel
+```
+
+## Deploy to Vercel
+
+Import this repository into Vercel and keep the detected framework as Next.js.
+The included `vercel.json` selects the Vercel build command.
+
+Create a free Upstash Redis database, then add the following values under
+**Vercel project → Settings → Environment Variables** for Production, Preview
+and Development:
+
+```text
+MAILJET_API_KEY
+MAILJET_SECRET_KEY
+UPSTASH_REDIS_REST_URL
+UPSTASH_REDIS_REST_TOKEN
+ENQUIRY_TO_EMAIL
+ENQUIRY_FROM_EMAIL
+ENQUIRY_RATE_LIMIT_SALT
+```
+
+Use the verified Mailjet sender address for `ENQUIRY_FROM_EMAIL`. Generate a
+long random value for `ENQUIRY_RATE_LIMIT_SALT`. All seven values are
+server-only and must not use a `NEXT_PUBLIC_` prefix. A deploy or redeploy is
+required after changing them.
 
 ## Current scope
 
@@ -73,8 +106,9 @@ headteacher message, school-life highlights, print options, student details and
 portraits, gallery images/captions, memories, homepage introduction/hero/featured
 edition, site title, tagline, footer and contact details. Marketing page layouts,
 service descriptions and general headings remain code-controlled. The enquiry
-form remains a demonstration and does not deliver messages; payments and student
-self-submission are not implemented.
+form sends through a server-only Mailjet integration after its production secrets
+are configured. Enquiry content is not stored; Upstash retains only short-lived,
+salted rate-limit counters. Payments and student self-submission are not implemented.
 
 Each published school automatically receives a page at `/schools/<school-slug>`.
 Its primary, background and accent colours, logo, cover image, principal details,

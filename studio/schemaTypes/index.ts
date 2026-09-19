@@ -11,6 +11,15 @@ const color = (name: string, title: string, initialValue: string) => defineField
   description: 'Use a six-digit hex colour, for example #7B1E2B.',
   validation: r => r.required().regex(/^#[0-9a-fA-F]{6}$/, {name: 'hex colour', invert: false}),
 })
+const colourLuminance = (hex: string) => {
+  const channels=hex.slice(1).match(/.{2}/g)!.map(value=>Number.parseInt(value,16)/255)
+  const linear=channels.map(value=>value<=.03928 ? value/12.92 : ((value+.055)/1.055)**2.4)
+  return .2126*linear[0]+.7152*linear[1]+.0722*linear[2]
+}
+const colourContrast = (a: string,b: string) => {
+  const [lighter,darker]=[colourLuminance(a),colourLuminance(b)].sort((x,y)=>y-x)
+  return (lighter+.05)/(darker+.05)
+}
 const socialLinks = defineField({name: 'socialLinks', title: 'Public social links', type: 'array', of: [defineArrayMember({type: 'object', name: 'socialLink', fields: [text('label', 'Platform / label', true), defineField({name: 'url', type: 'url', validation: r => r.required().uri({scheme: ['https']})})]})]})
 
 const editorialImage = defineType({
@@ -32,7 +41,12 @@ const school = defineType({
     defineField({name: 'description', type: 'text', rows: 4}),
     defineField({name: 'logo', type: 'editorialImage'}),
     defineField({name: 'coverImage', type: 'editorialImage'}),
-    defineField({name: 'branding', title: 'School branding', type: 'object', description: 'These colours apply only to this school’s landing page. Text contrast is calculated automatically.', fields: [
+    defineField({name: 'branding', title: 'School branding', type: 'object', description: 'These colours apply only to this school’s landing page. Text contrast is calculated automatically.', validation:r=>r.custom((value:any)=>{
+      if(!value?.primaryColor || !value?.secondaryColor || !value?.accentColor) return true
+      if(colourContrast(value.primaryColor,value.secondaryColor)<3) return 'Primary and background colours are too similar. The website will use a safer text colour.'
+      if(colourContrast(value.primaryColor,value.accentColor)<3) return 'Primary and accent colours are too similar. The website will use a safer footer accent.'
+      return true
+    }).warning(), fields: [
       color('primaryColor', 'Primary colour', '#701D33'),
       color('secondaryColor', 'Page background colour', '#F6F1E7'),
       color('accentColor', 'Accent colour', '#D8B56D'),

@@ -33,9 +33,9 @@ export function SchoolDirectory({schools}: {schools: School[]}) {
         {visible.map((school, index) => (
           <article key={school.id} style={{'--school-primary':school.primary,'--school-primary-ink':school.primaryInk,'--school-accent':school.accent} as CSSProperties} className="group overflow-hidden border border-black/12 border-t-[5px] border-t-[var(--school-primary)] bg-[#fffdf8]">
             <div className="relative aspect-[4/3] overflow-hidden bg-[var(--school-primary)]">
-              {school.image && <img src={school.image} alt={school.imageAlt} className="h-full w-full object-cover opacity-72 transition duration-700 group-hover:scale-105" />}
+              {school.image && <img src={school.image} alt={school.imageAlt || `${school.name} school community`} loading="lazy" decoding="async" className="h-full w-full object-cover opacity-72 transition duration-700 group-hover:scale-105" />}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <span className="absolute left-5 top-5 grid size-12 place-items-center overflow-hidden border border-white/45 bg-black/20 text-sm font-black text-white backdrop-blur-sm">{school.logo ? <img src={school.logo} alt="" className="h-full w-full object-contain bg-white p-1"/> : `0${index + 1}`}</span>
+              <span className="absolute left-5 top-5 grid size-12 place-items-center overflow-hidden border border-white/55 bg-black/40 text-sm font-black text-white backdrop-blur-sm">{school.logo ? <img src={school.logo} alt="" loading="lazy" decoding="async" className="h-full w-full object-contain bg-white p-1"/> : `0${index + 1}`}</span>
               <p className="absolute bottom-5 left-5 flex items-center gap-2 text-sm text-white/80"><MapPin className="size-4" /> {school.city}, {school.country}</p>
             </div>
             <div className="p-6">

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Camera, Check, FileCheck2, LibraryBig, Printer, School } from "lucide-react";
+import {pageMetadata} from "@/lib/site";
 
-export const metadata: Metadata = { title: "For Schools", description: "Professional photography, yearbook design, digital hosting and printing—handled for your school." };
+export const metadata: Metadata = pageMetadata({title:"Yearbooks for Schools",description:"Professional photography, yearbook design, digital hosting and printing for schools in Zambia.",path:"/for-schools"});
 
 const included = [
   { Icon: Camera, title: "Professional photography", copy: "Portraits, graduation, events, sport, staff and school life captured with a consistent visual direction." },
@@ -15,7 +16,7 @@ export default function ForSchoolsPage() {
   return (
     <main>
       <section className="relative overflow-hidden bg-[#701d33] text-white">
-        <img src="/images/cultural-day.webp" alt="" className="absolute inset-0 h-full w-full object-cover opacity-22 mix-blend-luminosity" />
+        <img src="/images/cultural-day.webp" alt="" fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-22 mix-blend-luminosity" />
         <div className="page-shell relative z-10 grid min-h-[74svh] items-end gap-12 py-16 lg:grid-cols-[1.35fr_.65fr]">
           <div><p className="eyebrow text-[#f1ca7e]">For headteachers, PTAs & school leaders</p><h1 className="display mt-5 text-6xl leading-[.9] tracking-[-.05em] sm:text-8xl">Give every class something worth remembering.</h1></div>
           <div><p className="text-lg leading-8 text-white/74">A complete photography and yearbook service your school can continue each year—without building or managing another website.</p><Link href="/contact" className="focus-ring mt-8 inline-flex items-center gap-2 bg-[#f6f1e7] px-6 py-4 font-bold text-[#171713]">Create your school yearbook <ArrowRight className="size-4" /></Link></div>

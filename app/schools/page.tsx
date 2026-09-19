@@ -2,8 +2,9 @@ import {content, imageUrl} from "@/lib/sanity";
 import {schoolTheme} from "@/lib/school-theme";
 import type { Metadata } from "next";
 import { SchoolDirectory } from "@/components/school-directory";
+import {pageMetadata} from "@/lib/site";
 
-export const metadata: Metadata = { title: "Schools", description: "Browse participating schools and their growing digital yearbook archives." };
+export const metadata: Metadata = pageMetadata({title:"School Archives",description:"Browse participating Zambian schools and their growing digital yearbook archives.",path:"/schools"});
 
 export default async function SchoolsPage() {
   const docs = await content();

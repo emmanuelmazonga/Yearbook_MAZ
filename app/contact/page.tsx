@@ -1,8 +1,9 @@
 import {content} from "@/lib/sanity";
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
+import {pageMetadata} from "@/lib/site";
 
-export const metadata: Metadata = { title: "Start a Yearbook", description: "Tell us about your school, graduating class or photography needs." };
+export const metadata: Metadata = pageMetadata({title:"Start a Yearbook",description:"Tell us about your school, graduating class or photography needs in Zambia.",path:"/contact"});
 
 export default async function ContactPage() {
  const settings=(await content()).find(d=>d._id==="siteSettings");

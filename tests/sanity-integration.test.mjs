@@ -19,6 +19,8 @@ test('published CMS content drives pages, filters, images and new slugs', async 
   };
   try {
     const {default:worker}=await import('../dist/server/index.js');
+    const redirect=await worker.fetch(new Request('http://yearbook.test/schools'),{ASSETS:{fetch:async()=>new Response('',{status:404})}},{waitUntil(){},passThroughOnException(){}});
+    assert.equal(redirect.status,308); assert.equal(redirect.headers.get('location'),'https://yearbook.test/schools');
     const render=async(path)=>{
       const response=await worker.fetch(new Request('https://yearbook.test'+path),{ASSETS:{fetch:async()=>new Response('',{status:404})}},{waitUntil(){},passThroughOnException(){}});
       return {status:response.status,html:await response.text()};
@@ -29,11 +31,23 @@ test('published CMS content drives pages, filters, images and new slugs', async 
     school.principal={name:'Dr Test Principal',role:'Principal',message:'A test message.',portrait:gallery.image};
     school.schoolPhotos=[{...gallery.image,_key:'campus-test'}];
     school.socialLinks=[{_key:'social-test',label:'School news',url:'https://example.com/news'}];
-    for(const path of ['/','/schools','/schools/copperview-secondary','/yearbooks/copperview-2026','/photography','/contact','/about','/for-schools']) {
+    for(const path of ['/','/schools','/schools/copperview-secondary','/yearbooks/copperview-2026','/photography','/contact','/about','/for-schools','/privacy','/terms','/robots.txt','/sitemap.xml','/manifest.webmanifest']) {
       const {status,html}=await render(path); assert.equal(status,200,path); assert(!html.includes('temporarily unavailable'),path);
     }
+    const root=await render('/');
+    assert.match(root.html,/og:image/); assert.match(root.html,/\/og\.png/); assert.match(root.html,/canonical/);
+    const privacy=(await render('/privacy')).html;
+    assert.match(privacy,/Enquiry contents are not stored in the website database/);
+    assert.match(privacy,/salted hash derived from the network address/);
+    assert.match((await render('/terms')).html,/Acceptable use/);
+    const unknown=await render('/this-page-does-not-exist');
+    assert(unknown.status===404 || unknown.html.includes('NEXT_HTTP_ERROR_FALLBACK;404'));
     const landing=await render('/schools/copperview-secondary');
     assert.match(landing.html,/#123A70/); assert.match(landing.html,/#E9B949/); assert.match(landing.html,/Dr Test Principal/); assert.match(landing.html,/School news/);
+    assert.match(landing.html,/School archive/); assert.match(landing.html,/bg-\[var\(--school-primary\)\]/);
+    assert.match(await readFile(new URL('../app/globals.css',import.meta.url),'utf8'),/body:has\(> \.school-shell\) > \.global-site-header/);
+    assert.match(landing.html,/<strong class="display block truncate text-lg font-semibold">Copperview Secondary School<\/strong>/);
+    assert.match((await render('/')).html,/Copperview Living Yearbooks/);
     const initial=await render('/yearbooks/copperview-2026');
     assert.match(initial.html,/Chanda Mwansa/); assert.match(initial.html,/cdn.sanity.io/); assert.match(initial.html,/rect=/);
     const student=fixture.result.find(d=>d._type==='studentProfile'); student.fullName='CMS update verified';

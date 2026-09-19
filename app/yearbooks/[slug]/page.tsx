@@ -5,13 +5,16 @@ import Link from "next/link";
 import { ArrowDown, ArrowRight, BookOpen, Crown, Medal, MessageCircleHeart, Users } from "lucide-react";
 import { StudentBrowser } from "@/components/student-browser";
 import { YearbookGallery } from "@/components/yearbook-gallery";
+import {pageMetadata} from "@/lib/site";
 
 
 
 
 export async function generateMetadata({params}: {params: Promise<{slug:string}>}): Promise<Metadata> {
- const {slug}=await params; const book=(await content()).find(d=>d._type==='yearbook' && d.slug?.current===slug);
- return {title:book?.title || 'Yearbook not found',description:book?.introduction || ''};
+ const {slug}=await params; const docs=await content(); const book=docs.find(d=>d._type==='yearbook' && d.slug?.current===slug);
+ if(!book) return {title:'Yearbook not found',robots:{index:false,follow:false}};
+ const school=docs.find(d=>d._id===book.school?._ref);
+ return pageMetadata({title:`${book.title} · Class of ${book.graduationYear}`,description:book.introduction || `Explore ${school?.name || 'the school'} Class of ${book.graduationYear} digital yearbook.`,path:`/yearbooks/${slug}`,image:imageUrl(book.heroImage,1200) || null});
 }
 
 export default async function YearbookPage({params}: {params: Promise<{slug:string}>}) {
@@ -26,7 +29,7 @@ export default async function YearbookPage({params}: {params: Promise<{slug:stri
   return (
     <main>
       <section className="relative min-h-[calc(100svh-76px)] overflow-hidden bg-[#4b1223] text-white">
-        <img src={imageUrl(book.heroImage,1800)} alt={book.heroImage?.alt || ""} className="absolute inset-0 h-full w-full object-cover opacity-68" />
+        <img src={imageUrl(book.heroImage,1800)} alt={book.heroImage?.alt || `${school.name} Class of ${book.graduationYear}`} fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-68" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#32101d] via-[#32101d]/68 to-transparent" />
         <div className="grain absolute inset-0" />
         <div className="page-shell relative z-10 flex min-h-[calc(100svh-76px)] flex-col justify-between pb-10 pt-8">
@@ -44,7 +47,7 @@ export default async function YearbookPage({params}: {params: Promise<{slug:stri
 
       {head && <section id="headteacher" className="section-space bg-[#fffdf8]">
         <div className="page-shell grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
-          <div className="relative min-h-[480px] overflow-hidden bg-[#173f42]"><img src={imageUrl(head.portrait)} alt={head.portrait?.alt || ""} className="h-full w-full object-cover opacity-72 grayscale" /><div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-7 pt-24 text-white"><p className="eyebrow text-[#f1ca7e]">{head.name}</p><p className="display mt-2 text-3xl">Headteacher</p></div></div>
+          <div className="relative min-h-[480px] overflow-hidden bg-[#173f42]"><img src={imageUrl(head.portrait)} alt={head.portrait?.alt || `${head.name}, headteacher`} loading="lazy" decoding="async" className="h-full w-full object-cover opacity-72 grayscale" /><div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-7 pt-24 text-white"><p className="eyebrow text-[#f1ca7e]">{head.name}</p><p className="display mt-2 text-3xl">Headteacher</p></div></div>
           <div className="flex items-center">
             <div><p className="eyebrow text-[#701d33]">A message to the class</p><blockquote className="display mt-6 text-4xl leading-[1.18] sm:text-6xl">“{head.quote}”</blockquote><div className="mt-8 space-y-5 text-lg leading-8 text-black/62">{head.message?.split("\n\n").map((p:string,i:number)=><p key={i}>{p}</p>)}</div><p className="display mt-8 text-3xl text-[#701d33]">{head.name}</p></div>
           </div>
@@ -79,7 +82,7 @@ export default async function YearbookPage({params}: {params: Promise<{slug:stri
       <section className="overflow-hidden bg-[#701d33] text-white">
         <div className="page-shell grid lg:grid-cols-[1fr_1fr]">
           <div className="section-space lg:pr-14"><p className="eyebrow text-[#f1ca7e]">Memory wall</p><h2 className="display mt-5 text-5xl sm:text-7xl">Things only our class would understand.</h2><div className="mt-12 grid gap-4 sm:grid-cols-2">{memories.map(({title:label, body:copy, _id}, index) => <article key={_id} className={"p-6 " + (index % 2 ? "bg-[#f6f1e7] text-[#171713]" : "border border-white/25")}><p className="eyebrow opacity-60">{label}</p><p className="display mt-6 text-2xl leading-snug">“{copy}”</p></article>)}</div></div>
-          <div className="relative min-h-[560px]"><img src={photos[0]?.image} alt={photos[0]?.alt || ""} className="absolute inset-0 h-full w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[#3b0d1b]/72 via-transparent to-transparent" /><div className="absolute bottom-9 left-8 right-8"><MessageCircleHeart className="size-8 text-[#f1ca7e]" /><p className="display mt-4 max-w-md text-3xl">Every memory adds a voice to the class story.</p></div></div>
+          <div className="relative min-h-[560px]">{photos[0]?.image && <img src={photos[0].image} alt={photos[0].alt} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />}<div className="absolute inset-0 bg-gradient-to-t from-[#3b0d1b]/72 via-transparent to-transparent" /><div className="absolute bottom-9 left-8 right-8"><MessageCircleHeart className="size-8 text-[#f1ca7e]" /><p className="display mt-4 max-w-md text-3xl">Every memory adds a voice to the class story.</p></div></div>
         </div>
       </section>
 

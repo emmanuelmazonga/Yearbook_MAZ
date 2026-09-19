@@ -3,8 +3,9 @@ import {content, imageUrl} from "@/lib/sanity";
 import Link from "next/link";
 import { ArrowRight, Camera, Images, Sparkles } from "lucide-react";
 import { YearbookGallery } from "@/components/yearbook-gallery";
+import {pageMetadata} from "@/lib/site";
 
-export const metadata: Metadata = { title: "School Photography", description: "Graduation, portrait, sports and event photography for schools across Zambia." };
+export const metadata: Metadata = pageMetadata({title:"School Photography",description:"Graduation, portrait, sports and event photography for schools across Zambia.",path:"/photography"});
 
 const services = ["Graduation photography", "Individual portraits", "Group & class photos", "Sports photography", "Event photography", "Club photography", "Staff portraits"];
 
@@ -18,7 +19,7 @@ export default async function PhotographyPage() {
         <div className="flex items-center px-[max(1.25rem,calc((100vw-1240px)/2))] py-20 lg:pr-12">
           <div><p className="eyebrow text-[#f1ca7e]">School photography / Copperbelt</p><h1 className="display mt-5 text-6xl leading-[.9] tracking-[-.05em] sm:text-8xl">Photographs that feel like being there again.</h1><p className="mt-7 max-w-xl text-lg leading-8 text-white/68">Professional school photography with warmth, energy and a sense of place—from formal portraits to the moments nobody planned.</p><Link href="/contact" className="focus-ring mt-9 inline-flex items-center gap-2 bg-[#f6f1e7] px-6 py-4 font-bold text-[#171713]">Book school photography <ArrowRight className="size-4" /></Link></div>
         </div>
-        <img src={photos[0]?.image} alt={photos[0]?.alt || ''} className="min-h-[520px] h-full w-full object-cover" />
+        {photos[0]?.image && <img src={photos[0].image} alt={photos[0].alt} fetchPriority="high" decoding="async" className="min-h-[520px] h-full w-full object-cover" />}
       </section>
 
       <section className="section-space">

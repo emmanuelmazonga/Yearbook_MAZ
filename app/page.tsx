@@ -12,10 +12,8 @@ export default async function Home() {
  const photo=book && docs.find(d=>d._type==='galleryPhoto' && d.yearbook?._ref===book._id);
   return (
     <main>
-      <section
-        className="photo-wash grain relative min-h-[calc(100svh-76px)] overflow-hidden bg-[#153f42] bg-cover bg-[62%_center] text-white"
-        style={{ backgroundImage: `url("${imageUrl(settings?.heroImage || book?.heroImage,1800) || ""}")` }}
-      >
+      <section className="photo-wash grain relative min-h-[calc(100svh-76px)] overflow-hidden bg-[#153f42] text-white">
+        {(settings?.heroImage || book?.heroImage) && <img src={imageUrl(settings?.heroImage || book?.heroImage,1800)} alt={settings?.heroImage?.alt || book?.heroImage?.alt || `${school?.name || 'School'} graduating class`} fetchPriority="high" decoding="async" className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_center]"/>}
         <div className="page-shell relative z-10 flex min-h-[calc(100svh-76px)] items-end pb-12 pt-28 sm:pb-16 lg:items-center lg:py-20">
           <div className="max-w-[760px]">
             <p className="eyebrow reveal text-[#f1ca7e]">{school ? `${school.name} · Class of ${book?.graduationYear}` : settings?.siteTitle}</p>
@@ -26,11 +24,11 @@ export default async function Home() {
               {settings?.introduction}
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <Link href={href} className="focus-ring inline-flex items-center gap-3 bg-[#f6f1e7] px-6 py-4 font-bold text-[#171713] transition hover:bg-[#f1ca7e]">
-                {book ? `Open the ${book.graduationYear} yearbook` : "Explore schools"} <ArrowRight className="size-4" />
+              <Link href="/contact" className="focus-ring inline-flex items-center gap-3 bg-[#f6f1e7] px-6 py-4 font-bold text-[#171713] transition hover:bg-[#f1ca7e]">
+                Start your school yearbook <ArrowRight className="size-4" />
               </Link>
-              <Link href="/for-schools" className="focus-ring inline-flex items-center gap-3 border border-white/45 bg-black/10 px-6 py-4 font-bold text-white backdrop-blur-sm transition hover:bg-white/12">
-                Bring this to your school
+              <Link href={href} className="focus-ring inline-flex items-center gap-3 border border-white/55 bg-black/25 px-6 py-4 font-bold text-white backdrop-blur-sm transition hover:bg-black/40">
+                {book ? `Open the ${book.graduationYear} yearbook` : "Explore schools"}
               </Link>
             </div>
           </div>
@@ -56,7 +54,7 @@ export default async function Home() {
           <div className="relative mx-auto w-full max-w-[680px] pb-12 pt-4">
             <div className="absolute bottom-0 left-[5%] top-[15%] w-[82%] rotate-[-5deg] bg-[#d9cdbb]" />
             <article className="cover-shadow grain relative ml-auto aspect-[4/5] w-[72%] overflow-hidden bg-[#701d33] text-white">
-              <img src={imageUrl(book?.heroImage)} alt="Copperview students in the Class of 2026" className="absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-luminosity" />
+              {book?.heroImage && <img src={imageUrl(book.heroImage)} alt={book.heroImage.alt || `${school?.name || 'School'} graduating class`} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-luminosity" />}
               <div className="absolute inset-0 bg-gradient-to-t from-[#38101d] via-transparent to-[#132f31]/20" />
               <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-white/35 p-5 text-[10px] font-bold uppercase tracking-[.2em]">
                 <span>{school?.name}</span><span>{school?.city} · {school?.country}</span>
@@ -121,7 +119,7 @@ export default async function Home() {
       </section>
 
       <section className="grid bg-[#fffdf8] lg:grid-cols-2">
-        <div className="min-h-[460px] bg-cover bg-center" style={{ backgroundImage: `url("${imageUrl(photo?.image) || ""}")` }} role="img" aria-label="Students performing at Copperview cultural day" />
+        <div className="min-h-[460px] bg-[#132f31]">{photo?.image && <img src={imageUrl(photo.image)} alt={photo.image.alt || photo.title || 'Students taking part in school life'} loading="lazy" decoding="async" className="h-full min-h-[460px] w-full object-cover"/>}</div>
         <div className="flex items-center px-6 py-16 sm:px-12 lg:px-[10%]">
           <div className="max-w-xl">
             <Quote className="size-10 text-[#ba6f32]" />

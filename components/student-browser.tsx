@@ -32,7 +32,7 @@ export function StudentBrowser({students, year}: {students: Student[]; year:numb
             <DialogTrigger asChild>
               <button className="focus-ring group overflow-hidden bg-[#fffdf8] text-left shadow-[0_12px_38px_rgba(35,26,17,.09)]">
                 <div className="aspect-[4/5] overflow-hidden bg-[#173f42]">
-                  <div role="img" aria-label={student.alt} className="h-full w-full bg-cover bg-no-repeat transition duration-700 group-hover:scale-105" style={{ backgroundImage: student.image ? `url("${student.image}")` : undefined, backgroundPosition: "center" }} />
+                  {student.image && <img src={student.image} alt={student.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-700 group-hover:scale-105"/>}
                 </div>
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-[.16em] text-[#ba6f32]">{student.group} · {student.activity}</p>
@@ -44,7 +44,7 @@ export function StudentBrowser({students, year}: {students: Student[]; year:numb
             </DialogTrigger>
             <DialogContent className="max-h-[92vh] max-w-4xl overflow-y-auto border-0 bg-[#f6f1e7] p-0">
               <div className="grid md:grid-cols-[.82fr_1.18fr]">
-                <div role="img" aria-label={student.alt} className="min-h-[380px] bg-cover bg-no-repeat" style={{ backgroundImage: student.image ? `url("${student.image}")` : undefined, backgroundPosition: "center" }} />
+                <div className="min-h-[380px] bg-[#173f42]">{student.image && <img src={student.image} alt={student.alt} decoding="async" className="h-full min-h-[380px] w-full object-cover"/>}</div>
                 <div className="p-7 sm:p-10">
                   <DialogHeader>
                     <p className="eyebrow text-[#ba6f32]">{student.group} · Class of {year}</p>
