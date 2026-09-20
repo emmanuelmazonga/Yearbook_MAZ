@@ -3,9 +3,10 @@
 import type {CSSProperties} from "react";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRightIcon as ArrowUpRight, MapPinIcon as MapPin, MagnifyingGlassIcon as Search } from "@phosphor-icons/react/ssr";
 
-type School = {id:string; name:string; city:string; country:string; years:string[]; latest:string; image?:string; imageAlt:string; logo?:string; href:string; primary:string; primaryInk:string; accent:string};
+type School = {id:string; name:string; city:string; country:string; years:string[]; latest:string; image?:string; imageAlt:string; localImage:boolean; demoLabel:string; logo?:string; href:string; primary:string; primaryInk:string; accent:string};
 
 export function SchoolDirectory({schools}: {schools: School[]}) {
   const [query, setQuery] = useState("");
@@ -33,12 +34,15 @@ export function SchoolDirectory({schools}: {schools: School[]}) {
         {visible.map((school, index) => (
           <article key={school.id} style={{'--school-primary':school.primary,'--school-primary-ink':school.primaryInk,'--school-accent':school.accent} as CSSProperties} className="group overflow-hidden border border-black/12 border-t-[5px] border-t-[var(--school-primary)] bg-[#fffdf8]">
             <div className="relative aspect-[4/3] overflow-hidden bg-[var(--school-primary)]">
-              {school.image && <img src={school.image} alt={school.imageAlt || `${school.name} school community`} loading="lazy" decoding="async" className="h-full w-full object-cover opacity-72 transition duration-700 group-hover:scale-105" />}
+              {school.image && (school.localImage
+                ? <Image src={school.image} alt={school.imageAlt} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover opacity-72 transition duration-700 group-hover:scale-105" />
+                : <img src={school.image} alt={school.imageAlt} loading="lazy" decoding="async" className="h-full w-full object-cover opacity-72 transition duration-700 group-hover:scale-105" />)}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <span className="absolute left-5 top-5 grid size-12 place-items-center overflow-hidden border border-white/55 bg-black/40 text-sm font-black text-white backdrop-blur-sm">{school.logo ? <img src={school.logo} alt="" loading="lazy" decoding="async" className="h-full w-full object-contain bg-white p-1"/> : `0${index + 1}`}</span>
               <p className="absolute bottom-5 left-5 flex items-center gap-2 text-sm text-white/80"><MapPin className="size-4" /> {school.city}, {school.country}</p>
             </div>
             <div className="p-6">
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[.16em] text-[#701d33]">{school.demoLabel}</p>
               <div className="flex items-start justify-between gap-5">
                 <h2 className="display text-3xl leading-tight">{school.name}</h2>
                 <Link href={school.href} aria-label={"Open " + school.name} className="focus-ring grid size-10 shrink-0 place-items-center rounded-full border border-black/18 transition group-hover:bg-[var(--school-primary)] group-hover:text-[var(--school-primary-ink)]"><ArrowUpRight className="size-4" /></Link>

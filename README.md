@@ -8,10 +8,12 @@ print-yearbook ordering—all within a growing digital archive.
 
 ## Live prototype
 
-[Open Copperview Yearbook](https://copperview-yearbook.emmanuelmazonga.chatgpt.site)
+[Open the live demo](https://yearbook-zm.vercel.app/)
 
-The demonstration school, people and written content are fictional. The
-photography was generated specifically for this prototype.
+The sample yearbook profiles and stories are fictional. Kansenshi Secondary
+School uses a supplied photograph of its real campus for a clearly labelled
+demo preview; no official Kansenshi archive or yearbook is published. The
+other demonstration imagery was generated for this prototype.
 
 ## Included experiences
 
@@ -116,6 +118,10 @@ school photographs, public links and yearbook shelf are managed from the School
 record. Foreground colours are calculated automatically for readable contrast.
 Yearbooks reference their School record, so there is no second yearbook list to
 maintain on the school document.
+
+The Kansenshi demo currently overrides its Sanity cover image with the supplied
+local campus photograph. Its unapproved CMS history and headteacher message are
+not displayed. Replace this preview treatment only after school approval.
 
 Run `npm run build` then `node --test tests/sanity-integration.test.mjs` for the CMS
 route checks. These checks use isolated fixtures and never change production data.

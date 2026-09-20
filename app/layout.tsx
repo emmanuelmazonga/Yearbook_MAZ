@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
  const settings=(await content()).find(d=>d._id==="siteSettings");
  return {
   metadataBase: new URL(SITE_URL),
-  title: { default: settings?.siteTitle || SITE_NAME, template: `%s | ${settings?.siteTitle || SITE_NAME}` },
+  title: { default: settings?.siteTitle || SITE_NAME, template: `%s | ${SITE_NAME}` },
   description: settings?.introduction || DEFAULT_DESCRIPTION,
   alternates: {canonical: "/"},
   applicationName: SITE_NAME,
@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   icons: { icon: [{url:"/favicon.svg",type:"image/svg+xml"},{url:"/icon-192.png",sizes:"192x192",type:"image/png"}], shortcut: "/favicon.svg", apple:"/icon-192.png" },
   manifest: "/manifest.webmanifest",
   openGraph: {
-    type:"website", locale:"en_ZM", url:"/", siteName:settings?.siteTitle || SITE_NAME,
+    type:"website", locale:"en_ZM", url:"/", siteName:SITE_NAME,
     title:settings?.siteTitle || SITE_NAME, description:settings?.introduction || DEFAULT_DESCRIPTION,
     images:[{url:"/og.png",width:1200,height:630,alt:"Living Yearbooks — Your school years. Remembered forever."}],
   },

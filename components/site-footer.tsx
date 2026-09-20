@@ -21,10 +21,10 @@ export async function SiteFooter() {
         <div>
           <p className="mb-4 text-xs font-bold uppercase tracking-[.18em] text-white/75">Copperbelt</p>
           <p className="text-sm leading-7 text-white/85">Kitwe, Zambia<br />Photography · Design · Archive</p>
-          <p className="mt-8 text-xs text-white/70">Prototype content is fictional.</p>
+          <p className="mt-8 text-xs text-white/70">Demonstration website. Sample yearbook profiles and stories are fictional.</p>
         </div>
       </div>
-      <div className="border-t border-white/20 py-5 text-center text-xs text-white/75">{settings?.footerText}</div>
+      <div className="border-t border-white/20 py-5 text-center text-xs text-white/75">© {new Date().getFullYear()} Living Yearbooks · Demonstration website</div>
     </footer>
   );
 }

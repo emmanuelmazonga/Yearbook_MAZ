@@ -29,7 +29,7 @@ test("renders production sharing metadata and security headers", async () => {
   assert.equal(response.headers.get('x-content-type-options'),'nosniff');
   assert.match(response.headers.get('content-security-policy') ?? '',/frame-ancestors 'none'/);
   const html=await response.text();
-  assert.match(html,/<meta property="og:image" content="https:\/\/copperview-yearbook\.emmanuelmazonga\.chatgpt\.site\/og\.png"/);
-  assert.match(html,/<link rel="canonical" href="https:\/\/copperview-yearbook\.emmanuelmazonga\.chatgpt\.site\/"/);
+  assert.match(html,/<meta property="og:image" content="https:\/\/yearbook-zm\.vercel\.app\/og\.png"/);
+  assert.match(html,/<link rel="canonical" href="https:\/\/yearbook-zm\.vercel\.app\/"/);
   assert.match(html,/<link rel="manifest"/);
 });

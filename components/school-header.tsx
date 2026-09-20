@@ -4,6 +4,7 @@ import {imageUrl, type RecordData} from '@/lib/sanity';
 import {MobileNavigation} from '@/components/mobile-navigation';
 import {DesktopNavigation} from '@/components/desktop-navigation';
 import {ScrollAwareHeader} from '@/components/scroll-aware-header';
+import {isKansenshiPreview} from '@/lib/school-cover';
 
 const baseLinks = [
   ['Schools', '/schools'],
@@ -26,7 +27,7 @@ export function SchoolHeader({school, latestBook}: {school: RecordData; latestBo
         </span>
         <span className="min-w-0 leading-tight">
           <strong className="display block truncate text-lg font-semibold">{school.name}</strong>
-          <span className="block text-[10px] font-bold uppercase tracking-[.24em] text-[var(--school-primary-on-secondary)]">School archive</span>
+          <span className="block text-[10px] font-bold uppercase tracking-[.24em] text-[var(--school-primary-on-secondary)]">{isKansenshiPreview(school) ? 'Demo preview' : 'School archive'}</span>
         </span>
       </Link>
       <DesktopNavigation links={links} itemClassName="focus-ring rounded-sm text-sm font-semibold opacity-80 transition hover:text-[var(--school-primary-on-secondary)] hover:opacity-100" />
