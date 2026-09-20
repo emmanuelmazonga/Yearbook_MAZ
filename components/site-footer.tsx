@@ -1,6 +1,6 @@
 import {content} from "@/lib/sanity";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRightIcon as ArrowUpRight } from "@phosphor-icons/react/ssr";
 
 export async function SiteFooter() {
  const docs=await content(); const settings=docs.find(d=>d._id==="siteSettings"); const book=docs.find(d=>d._type==="yearbook" && d._id===settings?.featuredYearbook?._ref);

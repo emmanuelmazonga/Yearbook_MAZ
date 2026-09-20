@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Camera, ChevronRight, Trophy } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { CameraIcon as Camera, CaretRightIcon as ChevronRight, TrophyIcon as Trophy, XIcon as X } from "@phosphor-icons/react/ssr";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 type Student = {id:string; name:string; nickname:string; quote:string; activity:string; memory:string; ambition:string; group:string; image?:string; alt:string; biography?:string; achievements?:string[]};
 
@@ -42,10 +42,11 @@ export function StudentBrowser({students, year}: {students: Student[]; year:numb
                 </div>
               </button>
             </DialogTrigger>
-            <DialogContent className="max-h-[92vh] max-w-4xl overflow-y-auto border-0 bg-[#f6f1e7] p-0">
-              <div className="grid md:grid-cols-[.82fr_1.18fr]">
-                <div className="min-h-[380px] bg-[#173f42]">{student.image && <img src={student.image} alt={student.alt} decoding="async" className="h-full min-h-[380px] w-full object-cover"/>}</div>
-                <div className="p-7 sm:p-10">
+            <DialogContent showCloseButton={false} className="max-h-[calc(100dvh-1rem)] max-w-4xl gap-0 overflow-y-auto border-0 bg-[#f6f1e7] p-0 sm:max-h-[calc(100dvh-2rem)] sm:max-w-4xl">
+              <DialogClose className="focus-ring absolute right-3 top-3 z-10 grid size-9 place-items-center rounded-full bg-[#fffdf8] text-[#171713] shadow-md" aria-label="Close profile"><X className="size-5" /></DialogClose>
+              <div className="grid lg:grid-cols-[.55fr_1.45fr]">
+                <div className="h-[min(24dvh,180px)] overflow-hidden bg-[#173f42] sm:h-[min(28dvh,220px)] lg:h-full lg:min-h-[380px]">{student.image && <img src={student.image} alt={student.alt} decoding="async" className="h-full w-full object-cover"/>}</div>
+                <div className="p-5 sm:p-8 lg:p-10">
                   <DialogHeader>
                     <p className="eyebrow text-[#ba6f32]">{student.group} · Class of {year}</p>
                     <DialogTitle className="display mt-2 text-4xl sm:text-5xl">{student.name}</DialogTitle>

@@ -3,7 +3,7 @@
 import type {CSSProperties} from "react";
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowUpRight, MapPin, Search } from "lucide-react";
+import { ArrowUpRightIcon as ArrowUpRight, MapPinIcon as MapPin, MagnifyingGlassIcon as Search } from "@phosphor-icons/react/ssr";
 
 type School = {id:string; name:string; city:string; country:string; years:string[]; latest:string; image?:string; imageAlt:string; logo?:string; href:string; primary:string; primaryInk:string; accent:string};
 

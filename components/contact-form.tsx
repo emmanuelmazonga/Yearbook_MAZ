@@ -2,7 +2,7 @@
 
 import {useState} from "react";
 import Link from "next/link";
-import {ArrowRight,CheckCircle2,LoaderCircle} from "lucide-react";
+import {ArrowRightIcon as ArrowRight,CheckCircleIcon as CheckCircle2,CircleNotchIcon as LoaderCircle} from "@phosphor-icons/react/ssr";
 
 type FieldErrors=Record<string,string>;
 type ApiResponse={ok:boolean;message?:string;reference?:string;fields?:FieldErrors};

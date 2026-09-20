@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRightIcon as ArrowRight } from "@phosphor-icons/react/ssr";
 import {content} from "@/lib/sanity";
 import {pageMetadata} from "@/lib/site";
 

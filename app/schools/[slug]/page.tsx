@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import {notFound} from 'next/navigation';
-import {ArrowRight, ExternalLink, MapPin} from 'lucide-react';
+import {ArrowRightIcon as ArrowRight, ArrowSquareOutIcon as ExternalLink, MapPinIcon as MapPin} from '@phosphor-icons/react/ssr';
 import {content, imageUrl} from '@/lib/sanity';
 import {schoolTheme, withAlpha} from '@/lib/school-theme';
 import {pageMetadata} from '@/lib/site';

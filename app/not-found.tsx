@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 import Link from 'next/link';
-import {ArrowLeft, LibraryBig} from 'lucide-react';
+import {ArrowLeftIcon as ArrowLeft, BooksIcon as LibraryBig} from '@phosphor-icons/react/ssr';
 
 export const metadata: Metadata={title:'Page not found',robots:{index:false,follow:false}};
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Maximize2 } from "lucide-react";
+import { ArrowsOutIcon as Maximize2 } from "@phosphor-icons/react/ssr";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 type GalleryPhoto = {id:string; title:string; category:string; image?:string; alt:string; caption?:string; position:string; span:string};

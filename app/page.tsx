@@ -1,6 +1,6 @@
 import {content, imageUrl} from "@/lib/sanity";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Camera, Layers3, LibraryBig, MapPin, Quote } from "lucide-react";
+import { ArrowDownIcon as ArrowDown, ArrowRightIcon as ArrowRight, CameraIcon as Camera, StackIcon as Layers3, BooksIcon as LibraryBig, MapPinIcon as MapPin, QuotesIcon as Quote } from "@phosphor-icons/react/ssr";
 
 export default async function Home() {
  const docs=await content(); const settings=docs.find(d=>d._id==='siteSettings');
@@ -17,7 +17,7 @@ export default async function Home() {
         <div className="page-shell relative z-10 flex min-h-[calc(100svh-76px)] items-end pb-12 pt-28 sm:pb-16 lg:items-center lg:py-20">
           <div className="max-w-[760px]">
             <p className="eyebrow reveal text-[#f1ca7e]">{school ? `${school.name} · Class of ${book?.graduationYear}` : settings?.siteTitle}</p>
-            <h1 className="display reveal reveal-delay mt-5 text-[clamp(3.7rem,9vw,8.7rem)] font-medium leading-[.82] tracking-[-.065em]">
+            <h1 className="display reveal reveal-delay mt-5 text-[clamp(3.7rem,9vw,8.7rem)] font-medium leading-[.98] tracking-[-.065em]">
               Your school years.<br /><em className="font-normal text-[#f1ca7e]">Remembered forever.</em>
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-7 text-white/82 sm:text-xl sm:leading-8">
@@ -86,7 +86,7 @@ export default async function Home() {
               [LibraryBig, "03", "We preserve", "Each graduating class joins the school’s permanent digital archive, ready to revisit on any screen."],
             ].map(([Icon, number, title, copy], index) => (
               <article key={title as string} className={"py-10 md:px-9 " + (index ? "border-t border-white/15 md:border-l md:border-t-0" : "")}>
-                <div className="flex items-center justify-between text-[#d8b56d]"><Icon className="size-6" /><span className="text-sm font-bold">{number as string}</span></div>
+                <div className="flex items-center justify-between text-[#d8b56d]"><Icon className="size-7" weight="duotone" /><span className="text-sm font-bold">{number as string}</span></div>
                 <h3 className="display mt-16 text-3xl">{title as string}</h3>
                 <p className="mt-4 max-w-sm text-base leading-7 text-white/62">{copy as string}</p>
               </article>

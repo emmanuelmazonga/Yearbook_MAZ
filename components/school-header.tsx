@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import {ArrowUpRight} from 'lucide-react';
+import {ArrowUpRightIcon as ArrowUpRight} from '@phosphor-icons/react/ssr';
 import {imageUrl, type RecordData} from '@/lib/sanity';
 import {MobileNavigation} from '@/components/mobile-navigation';
+import {ScrollAwareHeader} from '@/components/scroll-aware-header';
 
 const baseLinks = [
   ['Schools', '/schools'],
@@ -14,7 +15,7 @@ const baseLinks = [
 export function SchoolHeader({school, latestBook}: {school: RecordData; latestBook?: RecordData}) {
   const initials=school.name.split(/\s+/).map((part:string)=>part[0]).join('').slice(0,3).toUpperCase();
   const links=baseLinks.map(([label,href])=>({label,href:label==='Yearbook' && latestBook ? `/yearbooks/${latestBook.slug.current}` : href}));
-  return <header className="sticky top-0 z-40 border-b border-black/10 bg-[var(--school-secondary)]/95 text-[var(--school-secondary-ink)] backdrop-blur-xl">
+  return <ScrollAwareHeader className="sticky top-0 z-40 border-b border-black/10 bg-[var(--school-secondary)]/95 text-[var(--school-secondary-ink)] backdrop-blur-xl">
     <div className="page-shell flex h-[76px] items-center justify-between gap-6">
       <Link href={`/schools/${school.slug.current}`} className="focus-ring flex min-w-0 items-center gap-3 rounded-md" aria-label={`${school.name} home`}>
         <span className="grid size-10 shrink-0 place-items-center overflow-hidden bg-[var(--school-primary)] text-xs font-black tracking-tight text-[var(--school-primary-ink)]">
@@ -39,5 +40,5 @@ export function SchoolHeader({school, latestBook}: {school: RecordData; latestBo
         ctaClassName="focus-ring mt-2 bg-[var(--school-primary)] px-4 py-3 font-bold text-[var(--school-primary-ink)]"
       />
     </div>
-  </header>;
+  </ScrollAwareHeader>;
 }

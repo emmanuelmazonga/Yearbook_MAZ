@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Camera, Check, FileCheck2, LibraryBig, Printer, School } from "lucide-react";
+import { ArrowRightIcon as ArrowRight, CameraIcon as Camera, CheckIcon as Check, FileTextIcon as FileCheck2, BooksIcon as LibraryBig, PrinterIcon as Printer, BuildingsIcon as School } from "@phosphor-icons/react/ssr";
 import {pageMetadata} from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({title:"Yearbooks for Schools",description:"Professional photography, yearbook design, digital hosting and printing for schools in Zambia.",path:"/for-schools"});
@@ -27,7 +27,7 @@ export default function ForSchoolsPage() {
         <div className="page-shell">
           <div className="grid gap-8 md:grid-cols-[.7fr_1.3fr]"><p className="eyebrow text-[#701d33]">What your school receives</p><h2 className="display text-5xl sm:text-7xl">One partner from the first portrait to the final printed page.</h2></div>
           <div className="mt-14 grid gap-px bg-black/15 sm:grid-cols-2">
-            {included.map(({ Icon, title, copy }, index) => <article key={title} className="bg-[#fffdf8] p-8 sm:p-10"><div className="flex items-center justify-between"><Icon className="size-6 text-[#701d33]" /><span className="text-xs font-bold text-black/35">0{index + 1}</span></div><h3 className="display mt-14 text-3xl">{title}</h3><p className="mt-4 max-w-md leading-7 text-black/57">{copy}</p></article>)}
+            {included.map(({ Icon, title, copy }, index) => <article key={title} className="bg-[#fffdf8] p-8 sm:p-10"><div className="flex items-center justify-between"><Icon className="size-7 text-[#701d33]" weight="duotone" /><span className="text-xs font-bold text-black/35">0{index + 1}</span></div><h3 className="display mt-14 text-3xl">{title}</h3><p className="mt-4 max-w-md leading-7 text-black/57">{copy}</p></article>)}
           </div>
         </div>
       </section>

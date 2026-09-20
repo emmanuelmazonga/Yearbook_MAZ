@@ -2,7 +2,7 @@ import {content, imageUrl} from "@/lib/sanity";
 import {notFound} from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, BookOpen, Crown, Medal, MessageCircleHeart, Users } from "lucide-react";
+import { ArrowDownIcon as ArrowDown, ArrowRightIcon as ArrowRight, BookOpenIcon as BookOpen, CrownIcon as Crown, MedalIcon as Medal, ChatCircleTextIcon as MessageCircleHeart, UsersIcon as Users } from "@phosphor-icons/react/ssr";
 import { StudentBrowser } from "@/components/student-browser";
 import { YearbookGallery } from "@/components/yearbook-gallery";
 import {pageMetadata} from "@/lib/site";

@@ -1,7 +1,8 @@
 import {content} from "@/lib/sanity";
 import Link from "next/link";
-import {ArrowUpRight} from "lucide-react";
+import {ArrowUpRightIcon as ArrowUpRight} from "@phosphor-icons/react/ssr";
 import {MobileNavigation} from "@/components/mobile-navigation";
+import {ScrollAwareHeader} from "@/components/scroll-aware-header";
 
 const baseLinks = [
   ["Schools", "/schools"],
@@ -15,7 +16,7 @@ export async function SiteHeader() {
  const docs=await content(); const settings=docs.find(d=>d._id==="siteSettings"); const book=docs.find(d=>d._type==="yearbook" && d._id===settings?.featuredYearbook?._ref);
  const links=baseLinks.map(([label,href])=>({label,href:label==="Yearbook" ? (book ? "/yearbooks/"+book.slug.current : "/schools") : href}));
   return (
-    <header className="global-site-header sticky top-0 z-40 border-b border-black/10 bg-[#f6f1e7]/92 backdrop-blur-xl">
+    <ScrollAwareHeader className="global-site-header sticky top-0 z-40 border-b border-black/10 bg-[#f6f1e7]/92 backdrop-blur-xl">
       <div className="page-shell flex h-[76px] items-center justify-between gap-6">
         <Link href="/" className="focus-ring flex items-center gap-3 rounded-md" aria-label="Yearbook home">
           <span className="grid size-10 place-items-center bg-[#701d33] text-sm font-black tracking-tight text-[#fffaf0]">CV</span>
@@ -40,6 +41,6 @@ export async function SiteHeader() {
           ctaClassName="focus-ring mt-2 bg-[#701d33] px-4 py-3 font-bold text-white"
         />
       </div>
-    </header>
+    </ScrollAwareHeader>
   );
 }

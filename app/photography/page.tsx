@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {content, imageUrl} from "@/lib/sanity";
 import Link from "next/link";
-import { ArrowRight, Camera, Images, Sparkles } from "lucide-react";
+import { ArrowRightIcon as ArrowRight, CameraIcon as Camera, ImagesIcon as Images, SparkleIcon as Sparkles } from "@phosphor-icons/react/ssr";
 import { YearbookGallery } from "@/components/yearbook-gallery";
 import {pageMetadata} from "@/lib/site";
 

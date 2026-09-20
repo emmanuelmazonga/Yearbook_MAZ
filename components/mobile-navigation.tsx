@@ -2,7 +2,8 @@
 
 import {useRef,useState} from "react";
 import Link from "next/link";
-import {Menu,X} from "lucide-react";
+import {useParams} from "next/navigation";
+import {ListIcon as Menu,XIcon as X} from "@phosphor-icons/react/ssr";
 
 type MobileLink={label:string;href:string};
 
@@ -15,6 +16,8 @@ export function MobileNavigation({links,summaryClassName,panelClassName,itemClas
 }) {
   const details=useRef<HTMLDetailsElement>(null);
   const [open,setOpen]=useState(false);
+  const params=useParams();
+  const visibleLinks=typeof params.slug === "string" ? links.filter(({label})=>label!=="Schools") : links;
   const close=()=>{
     if(details.current) details.current.open=false;
     setOpen(false);
@@ -26,7 +29,7 @@ export function MobileNavigation({links,summaryClassName,panelClassName,itemClas
     </summary>
     <div className={panelClassName}>
       <nav className="grid" aria-label="Mobile navigation">
-        {links.map(({label,href})=><Link key={label} href={href} onClick={close} className={itemClassName}>{label}</Link>)}
+        {visibleLinks.map(({label,href})=><Link key={label} href={href} onClick={close} className={itemClassName}>{label}</Link>)}
         <Link href="/contact" onClick={close} className={ctaClassName}>Start your yearbook</Link>
       </nav>
     </div>

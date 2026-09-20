@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {ArrowUpRight} from 'lucide-react';
+import {ArrowUpRightIcon as ArrowUpRight} from '@phosphor-icons/react/ssr';
 import type {RecordData} from '@/lib/sanity';
 
 export function SchoolFooter({school, latestBook}: {school: RecordData; latestBook?: RecordData}) {
