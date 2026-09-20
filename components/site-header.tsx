@@ -2,6 +2,7 @@ import {content} from "@/lib/sanity";
 import Link from "next/link";
 import {ArrowUpRightIcon as ArrowUpRight} from "@phosphor-icons/react/ssr";
 import {MobileNavigation} from "@/components/mobile-navigation";
+import {DesktopNavigation} from "@/components/desktop-navigation";
 import {ScrollAwareHeader} from "@/components/scroll-aware-header";
 
 const baseLinks = [
@@ -25,11 +26,7 @@ export async function SiteHeader() {
             <span className="block text-[10px] font-bold uppercase tracking-[.24em] text-[#701d33]">Living Yearbooks</span>
           </span>
         </Link>
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
-          {links.map(({label,href}) => (
-            <Link key={href} href={href} className="focus-ring rounded-sm text-sm font-semibold text-black/70 transition hover:text-[#701d33]">{label}</Link>
-          ))}
-        </nav>
+        <DesktopNavigation links={links} itemClassName="focus-ring rounded-sm text-sm font-semibold text-black/70 transition hover:text-[#701d33]" />
         <Link href="/contact" className="focus-ring hidden items-center gap-2 bg-[#171713] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#701d33] sm:flex">
           Start your yearbook <ArrowUpRight className="size-4" />
         </Link>

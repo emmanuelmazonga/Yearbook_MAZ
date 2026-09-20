@@ -2,6 +2,7 @@ import Link from 'next/link';
 import {ArrowUpRightIcon as ArrowUpRight} from '@phosphor-icons/react/ssr';
 import {imageUrl, type RecordData} from '@/lib/sanity';
 import {MobileNavigation} from '@/components/mobile-navigation';
+import {DesktopNavigation} from '@/components/desktop-navigation';
 import {ScrollAwareHeader} from '@/components/scroll-aware-header';
 
 const baseLinks = [
@@ -26,9 +27,7 @@ export function SchoolHeader({school, latestBook}: {school: RecordData; latestBo
           <span className="block text-[10px] font-bold uppercase tracking-[.24em] text-[var(--school-primary-on-secondary)]">School archive</span>
         </span>
       </Link>
-      <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
-        {links.map(({label,href})=><Link key={label} href={href} className="focus-ring rounded-sm text-sm font-semibold opacity-80 transition hover:text-[var(--school-primary-on-secondary)] hover:opacity-100">{label}</Link>)}
-      </nav>
+      <DesktopNavigation links={links} itemClassName="focus-ring rounded-sm text-sm font-semibold opacity-80 transition hover:text-[var(--school-primary-on-secondary)] hover:opacity-100" />
       <Link href="/contact" className="focus-ring hidden items-center gap-2 bg-[var(--school-primary)] px-5 py-3 text-sm font-bold text-[var(--school-primary-ink)] transition hover:opacity-85 sm:flex">
         Start your yearbook <ArrowUpRight className="size-4"/>
       </Link>

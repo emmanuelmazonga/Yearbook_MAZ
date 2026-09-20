@@ -2,13 +2,11 @@
 
 import {useRef,useState} from "react";
 import Link from "next/link";
-import {useParams} from "next/navigation";
 import {ListIcon as Menu,XIcon as X} from "@phosphor-icons/react/ssr";
-
-type MobileLink={label:string;href:string};
+import {useArchiveNavigationLinks, type ArchiveNavigationLink} from "@/components/archive-navigation-links";
 
 export function MobileNavigation({links,summaryClassName,panelClassName,itemClassName,ctaClassName}:{
-  links:readonly MobileLink[];
+  links:readonly ArchiveNavigationLink[];
   summaryClassName:string;
   panelClassName:string;
   itemClassName:string;
@@ -16,8 +14,7 @@ export function MobileNavigation({links,summaryClassName,panelClassName,itemClas
 }) {
   const details=useRef<HTMLDetailsElement>(null);
   const [open,setOpen]=useState(false);
-  const params=useParams();
-  const visibleLinks=typeof params.slug === "string" ? links.filter(({label})=>label!=="Schools") : links;
+  const visibleLinks=useArchiveNavigationLinks(links);
   const close=()=>{
     if(details.current) details.current.open=false;
     setOpen(false);
