@@ -15,7 +15,9 @@ const baseLinks = [
 
 export function SchoolHeader({school, latestBook}: {school: RecordData; latestBook?: RecordData}) {
   const initials=school.name.split(/\s+/).map((part:string)=>part[0]).join('').slice(0,3).toUpperCase();
-  const links=baseLinks.map(([label,href])=>({label,href:label==='Yearbook' && latestBook ? `/yearbooks/${latestBook.slug.current}` : href}));
+  const links=baseLinks
+    .filter(([label])=>label!=='Yearbook' || latestBook)
+    .map(([label,href])=>({label,href:label==='Yearbook' && latestBook ? `/yearbooks/${latestBook.slug.current}` : href}));
   return <ScrollAwareHeader className="sticky top-0 z-40 border-b border-black/10 bg-[var(--school-secondary)]/95 text-[var(--school-secondary-ink)] backdrop-blur-xl">
     <div className="page-shell flex h-[76px] items-center justify-between gap-6">
       <Link href={`/schools/${school.slug.current}`} className="focus-ring flex min-w-0 items-center gap-3 rounded-md" aria-label={`${school.name} home`}>

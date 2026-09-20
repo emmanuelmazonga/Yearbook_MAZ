@@ -12,7 +12,7 @@ export function SchoolFooter({school, latestBook}: {school: RecordData; latestBo
       </div>
       <div>
         <p className="mb-4 text-xs font-bold uppercase tracking-[.18em] opacity-90">Explore</p>
-        <div className="grid gap-3 text-sm"><Link href="/schools">Schools</Link><Link href={latestBook ? `/yearbooks/${latestBook.slug.current}` : '/schools'}>Yearbooks</Link><Link href="/photography">Photography</Link><Link href="/for-schools">For Schools</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div>
+        <div className="grid gap-3 text-sm"><Link href="/schools">Schools</Link>{latestBook && <Link href={`/yearbooks/${latestBook.slug.current}`}>Yearbooks</Link>}<Link href="/photography">Photography</Link><Link href="/for-schools">For Schools</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div>
       </div>
       <div>
         <p className="mb-4 text-xs font-bold uppercase tracking-[.18em] opacity-90">{school.name}</p>

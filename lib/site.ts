@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 
-export const SITE_URL = 'https://copperview-yearbook.emmanuelmazonga.chatgpt.site';
+export const SITE_URL = 'https://yearbook-zm.vercel.app';
 export const SITE_NAME = 'Living Yearbooks';
 export const DEFAULT_DESCRIPTION = 'Digital school yearbooks for Zambia—photography, student stories and graduating-class memories preserved in one living archive.';
 
