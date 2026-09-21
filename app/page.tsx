@@ -18,7 +18,7 @@ export default async function Home() {
         <div className="page-shell relative z-10 flex min-h-[calc(100svh-76px)] items-end pb-12 pt-28 sm:pb-16 lg:items-center lg:py-20">
           <div className="max-w-[760px]">
             <p className="eyebrow reveal text-[#f1ca7e]">This could be your living archive</p>
-            <h1 className="display reveal reveal-delay mt-5 text-[clamp(3.7rem,9vw,8.7rem)] font-medium leading-[.98] tracking-[-.065em]">
+            <h1 className="display reveal reveal-delay mt-5 text-[clamp(3.7rem,9vw,8.7rem)] font-medium leading-[1.08] tracking-[-.065em] lg:leading-[1.02]">
               Your school years.<br /><em className="font-normal text-[#f1ca7e]">Remembered forever.</em>
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-7 text-white/82 sm:text-xl sm:leading-8">
