@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
  const settings=(await content()).find(d=>d._id==="siteSettings");
  return {
   metadataBase: new URL(SITE_URL),
-  title: { default: settings?.siteTitle || SITE_NAME, template: `%s | ${SITE_NAME}` },
+  title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
   description: settings?.introduction || DEFAULT_DESCRIPTION,
   alternates: {canonical: "/"},
   applicationName: SITE_NAME,
@@ -22,10 +22,10 @@ export async function generateMetadata(): Promise<Metadata> {
   manifest: "/manifest.webmanifest",
   openGraph: {
     type:"website", locale:"en_ZM", url:"/", siteName:SITE_NAME,
-    title:settings?.siteTitle || SITE_NAME, description:settings?.introduction || DEFAULT_DESCRIPTION,
+    title:SITE_NAME, description:settings?.introduction || DEFAULT_DESCRIPTION,
     images:[{url:"/og.png",width:1200,height:630,alt:"Living Yearbooks — Your school years. Remembered forever."}],
   },
-  twitter: {card:"summary_large_image", title:settings?.siteTitle || SITE_NAME, description:settings?.introduction || DEFAULT_DESCRIPTION, images:["/og.png"]},
+  twitter: {card:"summary_large_image", title:SITE_NAME, description:settings?.introduction || DEFAULT_DESCRIPTION, images:["/og.png"]},
   robots: {index:true,follow:true,"max-image-preview":"large","max-snippet":-1,"max-video-preview":-1},
  };
 }

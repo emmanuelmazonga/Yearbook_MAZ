@@ -4,6 +4,7 @@ import {ArrowUpRightIcon as ArrowUpRight} from "@phosphor-icons/react/ssr";
 import {MobileNavigation} from "@/components/mobile-navigation";
 import {DesktopNavigation} from "@/components/desktop-navigation";
 import {ScrollAwareHeader} from "@/components/scroll-aware-header";
+import {SITE_NAME} from "@/lib/site";
 
 const baseLinks = [
   ["Schools", "/schools"],
@@ -20,10 +21,10 @@ export async function SiteHeader() {
     <ScrollAwareHeader className="global-site-header sticky top-0 z-40 border-b border-black/10 bg-[#f6f1e7]/92 backdrop-blur-xl">
       <div className="page-shell flex h-[76px] items-center justify-between gap-6">
         <Link href="/" className="focus-ring flex items-center gap-3 rounded-md" aria-label="Yearbook home">
-          <span className="grid size-10 place-items-center bg-[#701d33] text-sm font-black tracking-tight text-[#fffaf0]">CV</span>
+          <span className="grid size-10 place-items-center bg-[#701d33] text-sm font-black tracking-tight text-[#fffaf0]">LY</span>
           <span className="leading-tight">
-            <strong className="display block text-lg font-semibold">{settings?.siteTitle || "Living Yearbooks"}</strong>
-            <span className="block text-[10px] font-bold uppercase tracking-[.24em] text-[#701d33]">Living Yearbooks</span>
+            <strong className="display block text-lg font-semibold">{SITE_NAME}</strong>
+            <span className="block text-[10px] font-bold uppercase tracking-[.24em] text-[#701d33]">Digital school archives</span>
           </span>
         </Link>
         <DesktopNavigation links={links} itemClassName="focus-ring rounded-sm text-sm font-semibold text-black/70 transition hover:text-[#701d33]" />

@@ -32,7 +32,7 @@ export function StudentBrowser({students, year}: {students: Student[]; year:numb
             <DialogTrigger asChild>
               <button className="focus-ring group overflow-hidden bg-[#fffdf8] text-left shadow-[0_12px_38px_rgba(35,26,17,.09)]">
                 <div className="aspect-[4/5] overflow-hidden bg-[#173f42]">
-                  {student.image && <img src={student.image} alt={student.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-700 group-hover:scale-105"/>}
+                  {student.image && <img src={student.image} alt={student.alt} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition duration-700 group-hover:scale-105"/>}
                 </div>
                 <div className="p-5">
                   <p className="text-xs font-bold uppercase tracking-[.16em] text-[#ba6f32]">{student.group} · {student.activity}</p>
@@ -45,7 +45,7 @@ export function StudentBrowser({students, year}: {students: Student[]; year:numb
             <DialogContent showCloseButton={false} className="max-h-[calc(100dvh-1rem)] max-w-4xl gap-0 overflow-y-auto border-0 bg-[#f6f1e7] p-0 sm:max-h-[calc(100dvh-2rem)] sm:max-w-4xl">
               <DialogClose className="focus-ring absolute right-3 top-3 z-10 grid size-9 place-items-center rounded-full bg-[#fffdf8] text-[#171713] shadow-md" aria-label="Close profile"><X className="size-5" /></DialogClose>
               <div className="grid lg:grid-cols-[.55fr_1.45fr]">
-                <div className="h-[min(24dvh,180px)] overflow-hidden bg-[#173f42] sm:h-[min(28dvh,220px)] lg:h-full lg:min-h-[380px]">{student.image && <img src={student.image} alt={student.alt} decoding="async" className="h-full w-full object-cover"/>}</div>
+                <div className="h-[min(24dvh,180px)] overflow-hidden bg-[#173f42] sm:h-[min(28dvh,220px)] lg:h-full lg:min-h-[380px]">{student.image && <img src={student.image} alt={student.alt} decoding="async" className="h-full w-full object-contain lg:object-cover lg:object-top"/>}</div>
                 <div className="p-5 sm:p-8 lg:p-10">
                   <DialogHeader>
                     <p className="eyebrow text-[#ba6f32]">{student.group} · Class of {year}</p>

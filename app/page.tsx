@@ -5,6 +5,7 @@ import { ArrowDownIcon as ArrowDown, ArrowRightIcon as ArrowRight, CameraIcon as
 export default async function Home() {
  const docs=await content(); const settings=docs.find(d=>d._id==='siteSettings');
  const book=docs.find(d=>d._type==='yearbook' && d._id===settings?.featuredYearbook?._ref);
+ const sample=book?.slug?.current==='copperview-2026';
  const school=docs.find(d=>d._id===book?.school?._ref);
  const href=book ? '/yearbooks/'+book.slug.current : '/schools';
  const books=school ? docs.filter(d=>d._type==='yearbook' && d.school?._ref===school._id) : [];
@@ -16,7 +17,7 @@ export default async function Home() {
         {(settings?.heroImage || book?.heroImage) && <img src={imageUrl(settings?.heroImage || book?.heroImage,1800)} alt={settings?.heroImage?.alt || book?.heroImage?.alt || `${school?.name || 'School'} graduating class`} fetchPriority="high" decoding="async" className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_center]"/>}
         <div className="page-shell relative z-10 flex min-h-[calc(100svh-76px)] items-end pb-12 pt-28 sm:pb-16 lg:items-center lg:py-20">
           <div className="max-w-[760px]">
-            <p className="eyebrow reveal text-[#f1ca7e]">{school ? `${school.name} · Class of ${book?.graduationYear}` : settings?.siteTitle}</p>
+            <p className="eyebrow reveal text-[#f1ca7e]">This could be your living archive</p>
             <h1 className="display reveal reveal-delay mt-5 text-[clamp(3.7rem,9vw,8.7rem)] font-medium leading-[.98] tracking-[-.065em]">
               Your school years.<br /><em className="font-normal text-[#f1ca7e]">Remembered forever.</em>
             </h1>
@@ -28,7 +29,7 @@ export default async function Home() {
                 Start your school yearbook <ArrowRight className="size-4" />
               </Link>
               <Link href={href} className="focus-ring inline-flex items-center gap-3 border border-white/55 bg-black/25 px-6 py-4 font-bold text-white backdrop-blur-sm transition hover:bg-black/40">
-                {book ? `Open the ${book.graduationYear} yearbook` : "Explore schools"}
+                {book ? sample ? `Explore the ${book.graduationYear} sample` : `Open the ${book.graduationYear} yearbook` : "Explore schools"}
               </Link>
             </div>
           </div>
@@ -42,12 +43,12 @@ export default async function Home() {
       <section id="story" className="section-space overflow-hidden bg-[#f6f1e7]">
         <div className="page-shell grid items-center gap-14 lg:grid-cols-[.88fr_1.12fr]">
           <div>
-            <p className="eyebrow text-[#701d33]">Featured yearbook</p>
+            <p className="eyebrow text-[#701d33]">{sample ? 'Sample yearbook' : 'Featured yearbook'}</p>
             <h2 className="display mt-5 text-5xl leading-[.98] tracking-[-.04em] sm:text-7xl">Not a list of names. A story you can step back into.</h2>
             <p className="mt-7 max-w-xl text-lg leading-8 text-black/66">Meet the students, hear their voices, revisit cultural day, sports finals, club afternoons and the moments between the big moments.</p>
             <div className="mt-8 flex items-center gap-5">
-              <Link href={href} className="focus-ring inline-flex items-center gap-2 border-b-2 border-[#701d33] pb-2 font-bold text-[#701d33]">{book ? `Browse Class of ${book.graduationYear}` : "Browse schools"} <ArrowRight className="size-4" /></Link>
-              <span className="text-sm text-black/45">{book?.studentCount ? `${book.studentCount} students` : ""}</span>
+              <Link href={href} className="focus-ring inline-flex items-center gap-2 border-b-2 border-[#701d33] pb-2 font-bold text-[#701d33]">{book ? sample ? `Browse the ${book.graduationYear} sample` : `Browse Class of ${book.graduationYear}` : "Browse schools"} <ArrowRight className="size-4" /></Link>
+              {sample && <span className="text-sm text-black/45">Fictional demo school</span>}
             </div>
           </div>
 
@@ -57,7 +58,7 @@ export default async function Home() {
               {book?.heroImage && <img src={imageUrl(book.heroImage)} alt={book.heroImage.alt || `${school?.name || 'School'} graduating class`} loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-70 mix-blend-luminosity" />}
               <div className="absolute inset-0 bg-gradient-to-t from-[#38101d] via-transparent to-[#132f31]/20" />
               <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-white/35 p-5 text-[10px] font-bold uppercase tracking-[.2em]">
-                <span>{school?.name}</span><span>{school?.city} · {school?.country}</span>
+                <span>{school?.name}</span><span>{sample ? 'Sample edition' : `${school?.city} · ${school?.country}`}</span>
               </div>
               <div className="absolute bottom-0 p-7 sm:p-10">
                 <span className="display text-[7rem] leading-none sm:text-[10rem]">{book ? String(book.graduationYear).slice(-2) : ""}</span>
@@ -67,7 +68,7 @@ export default async function Home() {
             </article>
             <div className="absolute bottom-4 left-0 bg-[#132f31] px-5 py-4 text-white shadow-lg">
               <p className="display text-2xl">{book ? `Class of ${book.graduationYear}` : "Yearbook archive"}</p>
-              <p className="mt-1 text-xs text-white/60">Open digital edition</p>
+              <p className="mt-1 text-xs text-white/60">{sample ? 'Open sample edition' : 'Open digital edition'}</p>
             </div>
           </div>
         </div>
