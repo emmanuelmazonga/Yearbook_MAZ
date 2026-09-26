@@ -1,6 +1,6 @@
 import {content, imageUrl} from "@/lib/sanity";
 import Link from "next/link";
-import { ArrowDownIcon as ArrowDown, ArrowRightIcon as ArrowRight, CameraIcon as Camera, StackIcon as Layers3, BooksIcon as LibraryBig, MapPinIcon as MapPin, QuotesIcon as Quote } from "@phosphor-icons/react/ssr";
+import { ArrowDownIcon as ArrowDown, ArrowRightIcon as ArrowRight, MapPinIcon as MapPin, QuotesIcon as Quote } from "@phosphor-icons/react/ssr";
 
 export default async function Home() {
  const docs=await content(); const settings=docs.find(d=>d._id==='siteSettings');
@@ -66,10 +66,10 @@ export default async function Home() {
                 <p className="mt-2 text-xs font-bold uppercase tracking-[.24em] text-[#f1ca7e]">Our final year · our forever story</p>
               </div>
             </article>
-            <div className="absolute bottom-4 left-0 bg-[#132f31] px-5 py-4 text-white shadow-lg">
+            <Link href={href} aria-label={book ? sample ? `Open the ${book.graduationYear} sample edition` : `Open the ${book.graduationYear} digital edition` : "Open the yearbook archive"} className="focus-ring absolute bottom-4 left-0 block bg-[#132f31] px-5 py-4 text-white shadow-lg transition hover:bg-[#701d33]">
               <p className="display text-2xl">{book ? `Class of ${book.graduationYear}` : "Yearbook archive"}</p>
               <p className="mt-1 text-xs text-white/60">{sample ? 'Open sample edition' : 'Open digital edition'}</p>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -82,13 +82,12 @@ export default async function Home() {
           </div>
           <div className="grid md:grid-cols-3">
             {[
-              [Camera, "01", "We photograph", "Portraits, graduation, sports, teachers, clubs and the everyday life that makes a school feel like home."],
-              [Layers3, "02", "We design", "Images, memories and achievements become a cohesive, premium editorial story—not a spreadsheet of profiles."],
-              [LibraryBig, "03", "We preserve", "Each graduating class joins the school’s permanent digital archive, ready to revisit on any screen."],
-            ].map(([Icon, number, title, copy], index) => (
+              ["We photograph", "Portraits, graduation, sports, teachers, clubs and the everyday life that makes a school feel like home."],
+              ["We design", "Images, memories and achievements become a cohesive, premium editorial story—not a spreadsheet of profiles."],
+              ["We preserve", "Each graduating class joins the school’s permanent digital archive, ready to revisit on any screen."],
+            ].map(([title, copy], index) => (
               <article key={title as string} className={"py-10 md:px-9 " + (index ? "border-t border-white/15 md:border-l md:border-t-0" : "")}>
-                <div className="flex items-center justify-between text-[#d8b56d]"><Icon className="size-7" weight="duotone" /><span className="text-sm font-bold">{number as string}</span></div>
-                <h3 className="display mt-16 text-3xl">{title as string}</h3>
+                <h3 className="display text-3xl">{title as string}</h3>
                 <p className="mt-4 max-w-sm text-base leading-7 text-white/62">{copy as string}</p>
               </article>
             ))}

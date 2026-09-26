@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import {content, imageUrl} from "@/lib/sanity";
 import Link from "next/link";
-import { ArrowRightIcon as ArrowRight, CameraIcon as Camera, ImagesIcon as Images, SparkleIcon as Sparkles } from "@phosphor-icons/react/ssr";
+import { ArrowRightIcon as ArrowRight, CameraIcon as Camera, IdentificationBadgeIcon as IdentificationBadge, ImagesIcon as Images, UsersThreeIcon as UsersThree } from "@phosphor-icons/react/ssr";
 import { YearbookGallery } from "@/components/yearbook-gallery";
 import {pageMetadata} from "@/lib/site";
 
 export const metadata: Metadata = pageMetadata({title:"School Photography",description:"Graduation, portrait, sports and event photography for schools across Zambia.",path:"/photography"});
 
 const services = ["Graduation photography", "Individual portraits", "Group & class photos", "Sports photography", "Event photography", "Club photography", "Staff portraits"];
+const serviceIcons = [Camera, Images, UsersThree, Camera, Images, IdentificationBadge, Camera];
 
 export default async function PhotographyPage() {
   const docs=await content();
@@ -26,7 +27,7 @@ export default async function PhotographyPage() {
         <div className="page-shell grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
           <div><p className="eyebrow text-[#701d33]">Photography services</p><h2 className="display mt-4 text-5xl sm:text-6xl">One school.<br />Every side of it.</h2></div>
           <div className="grid gap-px bg-black/15 sm:grid-cols-2">
-            {services.map((service, index) => <article key={service} className="flex min-h-40 items-end justify-between bg-[#fffdf8] p-6"><div><span className="text-xs font-bold text-[#ba6f32]">0{index + 1}</span><h3 className="display mt-8 text-2xl">{service}</h3></div>{index % 3 === 0 ? <Camera className="size-5 text-[#701d33]" /> : index % 3 === 1 ? <Images className="size-5 text-[#701d33]" /> : <Sparkles className="size-5 text-[#701d33]" />}</article>)}
+            {services.map((service, index) => { const Icon=serviceIcons[index]; return <article key={service} className="flex min-h-40 items-end justify-between bg-[#fffdf8] p-6"><div><span className="text-xs font-bold text-[#ba6f32]">0{index + 1}</span><h3 className="display mt-8 text-2xl">{service}</h3></div><Icon className="size-5 text-[#701d33]" /></article>; })}
           </div>
         </div>
       </section>
