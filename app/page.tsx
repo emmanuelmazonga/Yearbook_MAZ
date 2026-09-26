@@ -95,6 +95,31 @@ export default async function Home() {
         </div>
       </section>
 
+      <section className="section-space bg-[#fffdf8]">
+        <div className="page-shell">
+          <div className="text-center">
+            <p className="eyebrow text-[#701d33]">Take it off the screen</p>
+            <h2 className="display mx-auto mt-4 max-w-4xl text-5xl sm:text-7xl">A physical edition for the shelf—and the years ahead.</h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-black/58">Selected portraits, stories and highlights from the digital yearbook, professionally designed and printed.</p>
+          </div>
+          <div className="mx-auto mt-14 grid max-w-4xl gap-5 sm:grid-cols-2">
+            {(book?.printOptions || []).map(({title,description:detail,priceLabel:price}:{title:string;description:string;priceLabel?:string}, index:number) => (
+              <article key={title} className={"p-8 sm:p-10 " + (index === 0 ? "bg-[#173f42] text-white" : "border border-black/15")}>
+                <p className="eyebrow opacity-58">Printed yearbook · {book?.graduationYear}</p>
+                <div className={"cover-shadow mx-auto my-10 aspect-[3/4] w-40 p-5 " + (index === 0 ? "bg-[#701d33]" : "bg-[#d8b56d] text-[#171713]")}>
+                  <p className="display text-6xl">{book ? String(book.graduationYear).slice(-2) : ""}</p>
+                  <p className="mt-14 text-xs font-bold uppercase tracking-[.16em]">{school?.name}</p>
+                </div>
+                <h3 className="display text-3xl">{title}</h3>
+                <p className="mt-3 text-sm opacity-64">{detail}</p>
+                <p className="mt-7 font-bold">{price}</p>
+                <Link href="/contact" className={"focus-ring mt-7 inline-flex items-center gap-2 border-b pb-2 font-bold " + (index === 0 ? "border-[#f1ca7e] text-[#f1ca7e]" : "border-[#701d33] text-[#701d33]")}>Register interest <ArrowRight className="size-4" /></Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section-space bg-[#e7dcc7]">
         <div className="page-shell">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">

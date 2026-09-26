@@ -26,7 +26,7 @@ export function StudentBrowser({students, year}: {students: Student[]; year:numb
         <button onClick={() => setSort(sort === "first" ? "surname" : "first")} className="focus-ring text-sm font-bold text-[#701d33]">Sort by {sort === "first" ? "surname" : "first name"}</button>
       </div>
       {!visible.length && <p>No published student profiles yet.</p>}
-      <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
         {visible.map((student) => (
           <Dialog key={student.id}>
             <DialogTrigger asChild>
