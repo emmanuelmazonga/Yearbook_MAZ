@@ -1,18 +1,9 @@
 import {content} from "@/lib/sanity";
 import type { Metadata } from "next";
-import { Archivo_Narrow } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import {DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL} from "@/lib/site";
-
-const displayFont = Archivo_Narrow({
-  subsets: ["latin"],
-  weight: "variable",
-  style: ["normal", "italic"],
-  variable: "--font-display",
-  display: "swap",
-});
 
 export async function generateMetadata(): Promise<Metadata> {
  const settings=(await content()).find(d=>d._id==="siteSettings");
@@ -41,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={displayFont.variable}>
+    <html lang="en">
       <body className="antialiased">
         <SiteHeader />
         {children}
