@@ -1,14 +1,14 @@
 import {content} from "@/lib/sanity";
 import type { Metadata } from "next";
-import { Barlow_Condensed } from "next/font/google";
+import { Archivo_Narrow } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import {DEFAULT_DESCRIPTION, SITE_NAME, SITE_URL} from "@/lib/site";
 
-const displayFont = Barlow_Condensed({
+const displayFont = Archivo_Narrow({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: "variable",
   style: ["normal", "italic"],
   variable: "--font-display",
   display: "swap",
