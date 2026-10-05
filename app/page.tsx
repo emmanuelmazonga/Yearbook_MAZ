@@ -16,9 +16,9 @@ export default async function Home() {
       <section className="photo-wash grain relative min-h-[calc(100svh-76px)] overflow-hidden bg-[#153f42] text-white">
         {(settings?.heroImage || book?.heroImage) && <img src={imageUrl(settings?.heroImage || book?.heroImage,1800)} alt={settings?.heroImage?.alt || book?.heroImage?.alt || `${school?.name || 'School'} graduating class`} fetchPriority="high" decoding="async" className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_center]"/>}
         <div className="page-shell relative z-10 flex min-h-[calc(100svh-76px)] items-end pb-12 pt-28 sm:pb-16 lg:items-center lg:py-20">
-          <div className="max-w-[760px]">
+          <div className="max-w-[920px]">
             <p className="eyebrow reveal text-[#f1ca7e]">This could be your living archive</p>
-            <h1 className="display reveal reveal-delay mt-5 text-[clamp(3.7rem,9vw,8.7rem)] font-medium leading-[.98] tracking-[-.065em]">
+            <h1 className="display reveal reveal-delay mt-5 text-[clamp(3.5rem,7vw,7.2rem)] font-medium leading-[.96] tracking-[-.055em]">
               Your school years.<em className="mt-[.1em] block font-normal text-[#f1ca7e]">Remembered forever.</em>
             </h1>
             <p className="mt-7 max-w-2xl text-base leading-7 text-white/82 sm:text-xl sm:leading-8">
