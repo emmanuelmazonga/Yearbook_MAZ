@@ -80,7 +80,7 @@ body:has(> .school-shell) > .global-site-footer {
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 5px);
   --font-sans: Arial, Helvetica, sans-serif;
-  --font-serif: Georgia, "Times New Roman", serif;
+  --font-serif: var(--font-display), "Arial Narrow", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -94,7 +94,10 @@ body {
 }
 ::selection { background: #701d33; color: #fffaf0; }
 
-.display { font-family: Georgia, "Times New Roman", serif; }
+.display {
+  font-family: var(--font-display), "Arial Narrow", Arial, sans-serif;
+  font-kerning: normal;
+}
 .eyebrow {
   font-size: .75rem;
   font-weight: 700;
@@ -131,7 +134,7 @@ body {
 
 .policy-copy { font-size: 1.0625rem; line-height: 1.8; }
 .policy-copy section + section { margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(0,0,0,.12); }
-.policy-copy h2 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.1; }
+.policy-copy h2 { font-family: var(--font-display), "Arial Narrow", Arial, sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.1; }
 .policy-copy p { margin-top: 1rem; color: rgba(23,23,19,.72); }
 .policy-copy a { color: #701d33; font-weight: 700; text-decoration: underline; text-underline-offset: .2em; }
 .policy-copy aside { margin-top: 3rem; border-left: 4px solid #d8b56d; background: #f6f1e7; padding: 1.5rem; color: rgba(23,23,19,.76); }
