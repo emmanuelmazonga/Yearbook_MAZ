@@ -1,6 +1,6 @@
 "use client";
 
-import {useRef,useState} from "react";
+import {useCallback,useEffect,useRef,useState} from "react";
 import Link from "next/link";
 import {ListIcon as Menu,XIcon as X} from "@phosphor-icons/react/ssr";
 import {useArchiveNavigationLinks, type ArchiveNavigationLink} from "@/components/archive-navigation-links";
@@ -15,10 +15,30 @@ export function MobileNavigation({links,summaryClassName,panelClassName,itemClas
   const details=useRef<HTMLDetailsElement>(null);
   const [open,setOpen]=useState(false);
   const visibleLinks=useArchiveNavigationLinks(links);
-  const close=()=>{
+  const close=useCallback(()=>{
     if(details.current) details.current.open=false;
     setOpen(false);
-  };
+  },[]);
+
+  useEffect(()=>{
+    if(!open) return;
+
+    const closeOutside=(event:PointerEvent)=>{
+      if(details.current && !details.current.contains(event.target as Node)) close();
+    };
+    const closeWithEscape=(event:KeyboardEvent)=>{
+      if(event.key!=="Escape") return;
+      close();
+      details.current?.querySelector("summary")?.focus();
+    };
+
+    document.addEventListener("pointerdown",closeOutside);
+    document.addEventListener("keydown",closeWithEscape);
+    return ()=>{
+      document.removeEventListener("pointerdown",closeOutside);
+      document.removeEventListener("keydown",closeWithEscape);
+    };
+  },[open,close]);
 
   return <details ref={details} onToggle={event=>setOpen(event.currentTarget.open)} className="group relative lg:hidden">
     <summary className={summaryClassName} aria-label={open ? "Close navigation" : "Open navigation"}>
